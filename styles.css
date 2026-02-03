@@ -1,16 +1,16 @@
 :root {
   color-scheme: light;
-  --bg: #0c1116;
-  --bg-alt: #0f1b2a;
-  --surface: rgba(16, 26, 40, 0.85);
-  --surface-strong: rgba(19, 33, 50, 0.95);
+  --bg: #080b10;
+  --bg-alt: #111a26;
+  --surface: rgba(16, 24, 36, 0.88);
+  --surface-strong: rgba(18, 30, 46, 0.95);
   --text: #edf2f7;
-  --muted: #b3c0d1;
-  --accent: #38d9a9;
-  --accent-2: #f2b880;
-  --accent-3: #7aa7ff;
+  --muted: #b8c6d9;
+  --accent: #4fe1c4;
+  --accent-2: #f4c08b;
+  --accent-3: #7c9dff;
   --border: rgba(255, 255, 255, 0.12);
-  --shadow: 0 40px 80px rgba(3, 8, 15, 0.45);
+  --shadow: 0 36px 70px rgba(2, 6, 12, 0.55);
   --radius-lg: 28px;
   --radius-md: 20px;
   --radius-sm: 14px;
@@ -26,7 +26,7 @@
 body {
   min-height: 100vh;
   font-family: "Space Grotesk", "Segoe UI", sans-serif;
-  background: radial-gradient(circle at top, #172437 0%, #0b1016 45%, #070b11 100%);
+  background: radial-gradient(circle at top, #1a2739 0%, #0b1118 45%, #06090e 100%);
   color: var(--text);
   overflow-x: hidden;
 }
@@ -37,8 +37,8 @@ body::after {
   position: fixed;
   inset: -20% 0 auto 0;
   height: 90vh;
-  background: radial-gradient(circle at 20% 20%, rgba(56, 217, 169, 0.2), transparent 55%),
-    radial-gradient(circle at 80% 10%, rgba(242, 184, 128, 0.15), transparent 45%);
+  background: radial-gradient(circle at 20% 20%, rgba(79, 225, 196, 0.2), transparent 55%),
+    radial-gradient(circle at 80% 10%, rgba(244, 192, 139, 0.15), transparent 45%);
   opacity: 0.8;
   pointer-events: none;
   z-index: 0;
@@ -47,8 +47,8 @@ body::after {
 body::after {
   inset: auto 0 -30% 0;
   height: 80vh;
-  background: radial-gradient(circle at 20% 80%, rgba(122, 167, 255, 0.2), transparent 60%),
-    radial-gradient(circle at 70% 90%, rgba(56, 217, 169, 0.15), transparent 55%);
+  background: radial-gradient(circle at 20% 80%, rgba(124, 157, 255, 0.2), transparent 60%),
+    radial-gradient(circle at 70% 90%, rgba(79, 225, 196, 0.15), transparent 55%);
 }
 
 #field {
@@ -80,17 +80,36 @@ a {
   padding: 14px 24px;
   border: 1px solid var(--border);
   border-radius: 999px;
-  background: rgba(7, 11, 17, 0.6);
+  background: rgba(7, 12, 19, 0.72);
   backdrop-filter: blur(18px);
+  box-shadow: 0 14px 30px rgba(5, 10, 18, 0.45);
 }
 
 .logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-size: 20px;
   font-weight: 700;
   letter-spacing: 2px;
 }
 
-.logo span {
+.logo img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(79, 225, 196, 0.5);
+  box-shadow: 0 10px 20px rgba(4, 10, 18, 0.45);
+}
+
+.logo-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.logo-text span {
   color: var(--accent);
 }
 
@@ -121,13 +140,13 @@ a {
   background: linear-gradient(120deg, var(--accent), var(--accent-3));
   color: #041018;
   font-weight: 600;
-  box-shadow: 0 18px 35px rgba(56, 217, 169, 0.25);
+  box-shadow: 0 18px 35px rgba(79, 225, 196, 0.25);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 25px 40px rgba(56, 217, 169, 0.35);
+  box-shadow: 0 25px 40px rgba(79, 225, 196, 0.35);
 }
 
 .btn.ghost {
@@ -195,6 +214,10 @@ a {
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
 }
 
+.support-cta {
+  margin-top: 28px;
+}
+
 .stat {
   padding: 18px;
   border-radius: var(--radius-sm);
@@ -222,6 +245,7 @@ a {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  backdrop-filter: blur(10px);
 }
 
 .card-top p {
@@ -300,6 +324,7 @@ a {
   border: 1px solid var(--border);
   background: var(--surface);
   box-shadow: 0 20px 45px rgba(5, 10, 20, 0.35);
+  backdrop-filter: blur(8px);
 }
 
 .panel.highlight {
@@ -322,6 +347,7 @@ a {
   border: 1px solid var(--border);
   background: rgba(12, 19, 30, 0.8);
   box-shadow: 0 18px 40px rgba(4, 8, 16, 0.35);
+  transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .tile h3 {
@@ -330,6 +356,11 @@ a {
 
 .tile p {
   color: var(--muted);
+}
+
+.tile:hover {
+  transform: translateY(-6px);
+  border-color: rgba(79, 225, 196, 0.45);
 }
 
 .timeline {
@@ -406,6 +437,7 @@ a {
   color: #041018;
   background: var(--accent);
   border-color: transparent;
+  box-shadow: 0 12px 24px rgba(79, 225, 196, 0.25);
 }
 
 .card {
