@@ -27,8 +27,6 @@ body {
   min-height: 100vh;
   font-family: "Space Grotesk", "Segoe UI", sans-serif;
   background: radial-gradient(circle at top, #1a2739 0%, #0b1118 45%, #06090e 100%);
-  background-size: 160% 160%;
-  animation: gradient-drift 28s ease infinite;
   color: var(--text);
   overflow-x: hidden;
 }
@@ -52,7 +50,6 @@ body::after {
   height: 80vh;
   background: radial-gradient(circle at 20% 80%, rgba(124, 157, 255, 0.2), transparent 60%),
     radial-gradient(circle at 70% 90%, rgba(79, 225, 196, 0.15), transparent 55%);
-  animation: aurora-drift 32s ease-in-out infinite reverse;
 }
 
 #field {
@@ -101,6 +98,8 @@ a {
 .logo img {
   width: 52px;
   height: 52px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid rgba(79, 225, 196, 0.5);
@@ -250,7 +249,6 @@ a {
   flex-direction: column;
   gap: 20px;
   backdrop-filter: blur(10px);
-  animation: float 12s ease-in-out infinite;
 }
 
 .card-top p {
@@ -365,19 +363,6 @@ a {
   background: rgba(12, 19, 30, 0.8);
   box-shadow: 0 18px 40px rgba(4, 8, 16, 0.35);
   transition: transform 0.3s ease, border-color 0.3s ease;
-  animation: float 18s ease-in-out infinite;
-}
-
-.tile:nth-child(2) {
-  animation-delay: 1.5s;
-}
-
-.tile:nth-child(3) {
-  animation-delay: 3s;
-}
-
-.tile:nth-child(4) {
-  animation-delay: 4.5s;
 }
 
 .tile h3 {
@@ -391,7 +376,6 @@ a {
 .tile:hover {
   transform: translateY(-6px);
   border-color: rgba(79, 225, 196, 0.45);
-  animation-play-state: paused;
 }
 
 .timeline {
