@@ -42,6 +42,7 @@ body::after {
   opacity: 0.8;
   pointer-events: none;
   z-index: 0;
+  animation: aurora-drift 26s ease-in-out infinite;
 }
 
 body::after {
@@ -276,6 +277,18 @@ a {
   color: var(--accent);
   font-size: 0.85rem;
   border: 1px solid rgba(56, 217, 169, 0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.chip::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 0%, rgba(124, 157, 255, 0.35) 50%, transparent 100%);
+  transform: translateX(-120%);
+  animation: scan 6s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .card-footer {
@@ -590,6 +603,52 @@ textarea:focus {
 [data-reveal].visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+@keyframes gradient-drift {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+@keyframes aurora-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -30px, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateX(-120%);
+  }
+  55% {
+    transform: translateX(120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
 }
 
 @media (max-width: 900px) {
