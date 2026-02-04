@@ -9,6 +9,8 @@ const state = {
   heroFloor: window.innerHeight * 0.7,
 };
 
+let resizeSandpiles = () => {};
+
 const maxGrains = 260;
 const gravity = 0.08;
 const jitter = 0.02;
@@ -218,17 +220,180 @@ function initSmoothScroll() {
   });
 }
 
+function initScriptViewer() {
+  const copyButtons = document.querySelectorAll(".copy-btn");
+  copyButtons.forEach((button) => {
+    button.addEventListener("click", async () => {
+      const targetId = button.dataset.copyTarget;
+      if (!targetId) return;
+      const codeBlock = document.getElementById(targetId);
+      if (!codeBlock) return;
+      const text = codeBlock.innerText.trim();
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (error) {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "absolute";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      }
+      const original = button.textContent;
+      button.textContent = "Copied";
+      setTimeout(() => {
+        button.textContent = original;
+      }, 1600);
+    });
+  });
+
+  const annotations = document.querySelectorAll(".annotation");
+  annotations.forEach((annotation) => {
+    annotation.addEventListener("click", () => {
+      const line = annotation.dataset.line;
+      const viewer = annotation.closest(".script-viewer");
+      if (!viewer || !line) return;
+      viewer.querySelectorAll(".code-line").forEach((codeLine) => {
+        codeLine.classList.remove("is-highlight");
+      });
+      viewer.querySelectorAll(".annotation").forEach((button) => {
+        button.classList.remove("active");
+      });
+      const lineEl = viewer.querySelector(`.code-line[data-line='${line}']`);
+      if (lineEl) {
+        lineEl.classList.add("is-highlight");
+        lineEl.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+      annotation.classList.add("active");
+    });
+  });
+}
+
+function initSectionSandpiles() {
+  const canvases = Array.from(document.querySelectorAll(".sandpile-canvas"));
+  if (!canvases.length) return;
+
+  const dpr = window.devicePixelRatio || 1;
+  const piles = canvases.map((canvas) => {
+    const ctx = canvas.getContext("2d");
+    const pile = {
+      canvas,
+      ctx,
+      grains: [],
+      width: 0,
+      height: 0,
+      active: true,
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          pile.active = entry.isIntersecting;
+        });
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(canvas);
+    return pile;
+  });
+
+  const seedGrains = (pile) => {
+    pile.grains = [];
+    const count = Math.min(90, Math.max(50, Math.floor(pile.width / 10)));
+    for (let i = 0; i < count; i += 1) {
+      pile.grains.push({
+        x: Math.random() * pile.width,
+        y: pile.height * 0.2 + Math.random() * pile.height * 0.6,
+        vx: (Math.random() - 0.5) * 0.2,
+        vy: Math.random() * 0.2,
+        r: 0.8 + Math.random() * 1.6,
+        settled: Math.random() > 0.3,
+      });
+    }
+  };
+
+  const resizePile = (pile) => {
+    const width = pile.canvas.clientWidth;
+    const height = pile.canvas.clientHeight;
+    if (!width || !height) return;
+    pile.width = width;
+    pile.height = height;
+    pile.canvas.width = width * dpr;
+    pile.canvas.height = height * dpr;
+    pile.ctx.setTransform(1, 0, 0, 1, 0, 0);
+    pile.ctx.scale(dpr, dpr);
+    seedGrains(pile);
+  };
+
+  const resizeAll = () => {
+    piles.forEach(resizePile);
+  };
+
+  resizeAll();
+  resizeSandpiles = resizeAll;
+
+  const gravityLocal = 0.015;
+  const jitterLocal = 0.02;
+  const floorPadding = 12;
+
+  const animate = () => {
+    piles.forEach((pile) => {
+      if (!pile.active || !pile.width || !pile.height) return;
+      const { ctx } = pile;
+      ctx.clearRect(0, 0, pile.width, pile.height);
+      ctx.fillStyle = "rgba(0, 245, 212, 0.4)";
+      pile.grains.forEach((grain) => {
+        if (!grain.settled) {
+          grain.vy += gravityLocal;
+          grain.vx += (Math.random() - 0.5) * jitterLocal;
+          grain.x += grain.vx;
+          grain.y += grain.vy;
+
+          if (grain.x < grain.r || grain.x > pile.width - grain.r) {
+            grain.vx *= -0.4;
+          }
+
+          if (grain.y >= pile.height - floorPadding) {
+            grain.y = pile.height - floorPadding - Math.random() * 6;
+            grain.settled = true;
+            grain.vx = 0;
+            grain.vy = 0;
+          }
+        } else if (Math.random() > 0.995) {
+          grain.settled = false;
+          grain.y = Math.random() * pile.height * 0.2;
+          grain.vy = Math.random() * 0.4;
+        }
+
+        ctx.beginPath();
+        ctx.arc(grain.x, grain.y, grain.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    });
+
+    requestAnimationFrame(animate);
+  };
+
+  requestAnimationFrame(animate);
+}
+
 resize();
 createGrains();
 initCounters();
 initFilters();
 initReveal();
 initSmoothScroll();
+initScriptViewer();
+initSectionSandpiles();
 requestAnimationFrame(draw);
 
 window.addEventListener("resize", () => {
   resize();
   createGrains();
+  resizeSandpiles();
 });
 
 function initSimPreviews() {
