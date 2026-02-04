@@ -150,7 +150,8 @@
         </div>
       </section>
 
-      <section class="section" id="research">
+      <section class="section sandpile-section" id="research">
+        <canvas class="sandpile-canvas" aria-hidden="true"></canvas>
         <div class="section-title">
           <h2>Research Themes</h2>
           <p>Simulations, theory, and experimentation for soft matter and biological physics.</p>
@@ -162,21 +163,6 @@
               Modeling collective behavior, emergent order, and transport in driven particle
               systems.
             </p>
-            <div class="tile-meta">
-              <h4>Simulation Metadata</h4>
-              <ul>
-                <li><strong>DEM model:</strong> Vicsek + soft collisions</li>
-                <li><strong>LAMMPS:</strong> fix langevin, timestep 0.002</li>
-                <li><strong>HPC runtime:</strong> 12h @ 128 cores</li>
-                <li><strong>Publication:</strong> Draft in progress</li>
-                <li>
-                  <strong>GitHub:</strong>
-                  <a href="https://github.com/kkgodara" target="_blank" rel="noopener noreferrer"
-                    >github.com/kkgodara</a
-                  >
-                </li>
-              </ul>
-            </div>
           </article>
           <article class="tile">
             <h3>Non-Equilibrium Systems</h3>
@@ -184,42 +170,12 @@
               Exploring fluctuations, phase transitions, and stability in out-of-equilibrium
               environments.
             </p>
-            <div class="tile-meta">
-              <h4>Simulation Metadata</h4>
-              <ul>
-                <li><strong>DEM model:</strong> Active Brownian particles</li>
-                <li><strong>LAMMPS:</strong> fix nve + thermostat</li>
-                <li><strong>HPC runtime:</strong> 8h @ 96 cores</li>
-                <li><strong>Publication:</strong> Submitted</li>
-                <li>
-                  <strong>GitHub:</strong>
-                  <a href="https://github.com/kkgodara" target="_blank" rel="noopener noreferrer"
-                    >github.com/kkgodara</a
-                  >
-                </li>
-              </ul>
-            </div>
           </article>
           <article class="tile">
             <h3>Complex Networks</h3>
             <p>
               Studying topology, interactions, and dynamical response in multiscale networks.
             </p>
-            <div class="tile-meta">
-              <h4>Simulation Metadata</h4>
-              <ul>
-                <li><strong>DEM model:</strong> Weighted graph diffusion</li>
-                <li><strong>LAMMPS:</strong> custom force kernel</li>
-                <li><strong>HPC runtime:</strong> 6h @ 64 cores</li>
-                <li><strong>Publication:</strong> Under review</li>
-                <li>
-                  <strong>GitHub:</strong>
-                  <a href="https://github.com/kkgodara" target="_blank" rel="noopener noreferrer"
-                    >github.com/kkgodara</a
-                  >
-                </li>
-              </ul>
-            </div>
           </article>
           <article class="tile">
             <h3>Granular Materials & Sandpile Dynamics</h3>
@@ -227,26 +183,92 @@
               Investigating avalanches, jamming, and criticality in granular media with
               computational sandpile models.
             </p>
-            <div class="tile-meta">
-              <h4>Simulation Metadata</h4>
-              <ul>
-                <li><strong>DEM model:</strong> Sandpile + frictional grains</li>
-                <li><strong>LAMMPS:</strong> granular/hertz/history</li>
-                <li><strong>HPC runtime:</strong> 18h @ 256 cores</li>
-                <li><strong>Publication:</strong> In preparation</li>
-                <li>
-                  <strong>GitHub:</strong>
-                  <a href="https://github.com/kkgodara" target="_blank" rel="noopener noreferrer"
-                    >github.com/kkgodara</a
-                  >
-                </li>
-              </ul>
-            </div>
           </article>
+        </div>
+        <div class="grid two lammps-grid" data-reveal>
+          <div class="terminal-panel">
+            <div class="panel-header">
+              <div>
+                <span class="panel-eyebrow">in.lammps</span>
+                <h3>LAMMPS Input Deck</h3>
+                <p class="panel-subtitle">Terminal-inspired script layout for active matter studies.</p>
+              </div>
+              <button class="btn ghost micro run-btn" type="button">Run Simulation</button>
+            </div>
+            <pre class="lammps-code" id="research-script"><code><span class="code-line"><span class="token keyword">units</span> lj</span>
+<span class="code-line"><span class="token keyword">dimension</span> 2</span>
+<span class="code-line"><span class="token keyword">atom_style</span> sphere</span>
+<span class="code-line"><span class="token keyword">pair_style</span> gran/hertz/history 1.0 1.0 0.5 0.1 0.0</span>
+<span class="code-line"><span class="token keyword">fix</span> drive all nve/sphere</span>
+<span class="code-line"><span class="token keyword">fix</span> thermostat all langevin 1.0 1.0 1.0 <span class="token number">48279</span></span>
+<span class="code-line"><span class="token keyword">thermo</span> <span class="token number">200</span></span>
+<span class="code-line"><span class="token keyword">dump</span> pile all custom <span class="token number">500</span> dump.sand id type x y vx vy</span></code></pre>
+            <div class="panel-footer">
+              <span class="status-dot" aria-hidden="true"></span>
+              <span>Compute node: Jodhpur GPU-01 · ETA 00:42:13</span>
+            </div>
+          </div>
+          <div class="param-panel">
+            <div class="panel-header">
+              <div>
+                <span class="panel-eyebrow">Parameter Panel</span>
+                <h3>Runtime Controls</h3>
+                <p class="panel-subtitle">Syntax-highlighted variables and log.lammps style output.</p>
+              </div>
+            </div>
+            <div class="param-grid">
+              <div class="param-row">
+                <span class="param-key">timestep</span>
+                <span class="param-value">0.002</span>
+              </div>
+              <div class="param-row">
+                <span class="param-key">neighbor</span>
+                <span class="param-value">0.3 bin</span>
+              </div>
+              <div class="param-row">
+                <span class="param-key">pair_coeff</span>
+                <span class="param-value">* * 1.0 0.5</span>
+              </div>
+              <div class="param-row">
+                <span class="param-key">fix/gravity</span>
+                <span class="param-value">0.98 z</span>
+              </div>
+            </div>
+            <div class="thermo-widget">
+              <div class="thermo-title">log.lammps · thermo output</div>
+              <div class="thermo-table">
+                <div class="thermo-row">
+                  <span>Step</span>
+                  <span>Temp</span>
+                  <span>Press</span>
+                  <span>PE</span>
+                </div>
+                <div class="thermo-row">
+                  <span>12000</span>
+                  <span>0.98</span>
+                  <span>1.31</span>
+                  <span>-4.86</span>
+                </div>
+                <div class="thermo-row">
+                  <span>12200</span>
+                  <span>0.97</span>
+                  <span>1.29</span>
+                  <span>-4.90</span>
+                </div>
+                <div class="thermo-row">
+                  <span>12400</span>
+                  <span>0.99</span>
+                  <span>1.34</span>
+                  <span>-4.82</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section class="section" id="simulations">
+      <section class="section sandpile-section" id="simulations">
+        <canvas class="sandpile-canvas" aria-hidden="true"></canvas>
         <div class="section-title">
           <h2>Granular Simulations</h2>
           <p>Lazy-loaded previews of sandpile flow, clustering, and jamming regimes.</p>
@@ -307,6 +329,73 @@
               computational sandpile models.
             </p>
           </article>
+        </div>
+        <div class="sim-lammps-stack" data-reveal>
+          <div class="script-viewer">
+            <div class="viewer-header">
+              <div>
+                <span class="panel-eyebrow">Interactive Script Viewer</span>
+                <h3>in.lammps · shear_cell.in</h3>
+                <p class="panel-subtitle">Copy-ready input with annotated run stages.</p>
+              </div>
+              <div class="viewer-actions">
+                <button class="btn ghost micro run-btn" type="button">Run Simulation</button>
+                <button class="btn ghost micro copy-btn" type="button" data-copy-target="sim-script-code">
+                  Copy
+                </button>
+              </div>
+            </div>
+            <pre class="lammps-code code-scroll" id="sim-script-code"><code><span class="code-line" data-line="1"><span class="token keyword">units</span> lj</span>
+<span class="code-line" data-line="2"><span class="token keyword">boundary</span> p p f</span>
+<span class="code-line" data-line="3"><span class="token keyword">read_data</span> <span class="token file">sandpile.data</span></span>
+<span class="code-line" data-line="4"><span class="token keyword">group</span> grains type 1</span>
+<span class="code-line" data-line="5"><span class="token keyword">fix</span> shear grains move linear 0.02 0.0 0.0</span>
+<span class="code-line" data-line="6"><span class="token keyword">compute</span> stress grains stress/atom NULL</span>
+<span class="code-line" data-line="7"><span class="token keyword">thermo_style</span> custom step temp press pe</span>
+<span class="code-line" data-line="8"><span class="token keyword">thermo</span> <span class="token number">100</span></span>
+<span class="code-line" data-line="9"><span class="token keyword">dump</span> flow grains custom <span class="token number">250</span> dump.flow id type x y z c_stress[1]</span>
+<span class="code-line" data-line="10"><span class="token keyword">run</span> <span class="token number">50000</span></span></code></pre>
+            <div class="viewer-annotations">
+              <button class="annotation" type="button" data-line="3">
+                Data ingest: load granular bed and packing fraction.
+              </button>
+              <button class="annotation" type="button" data-line="5">
+                Shear driver: controlled velocity profile for top layer.
+              </button>
+              <button class="annotation" type="button" data-line="7">
+                Thermo probe: track pressure & potential energy.
+              </button>
+              <button class="annotation" type="button" data-line="9">
+                Dump: write per-atom stress for gallery previews.
+              </button>
+            </div>
+          </div>
+          <div class="dump-gallery">
+            <div class="dump-card">
+              <div class="dump-visual"></div>
+              <div class="dump-meta">
+                <span>Timestep 012000</span>
+                <span>Shear rate 0.02</span>
+                <span>Temp 0.98</span>
+              </div>
+            </div>
+            <div class="dump-card">
+              <div class="dump-visual"></div>
+              <div class="dump-meta">
+                <span>Timestep 018000</span>
+                <span>Shear rate 0.02</span>
+                <span>Press 1.36</span>
+              </div>
+            </div>
+            <div class="dump-card">
+              <div class="dump-visual"></div>
+              <div class="dump-meta">
+                <span>Timestep 024000</span>
+                <span>Shear rate 0.02</span>
+                <span>PE -4.91</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
