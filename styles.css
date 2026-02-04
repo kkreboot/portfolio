@@ -249,6 +249,22 @@ a {
   flex-direction: column;
   gap: 20px;
   backdrop-filter: blur(10px);
+  animation: float 12s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-card::before {
+  content: "";
+  position: absolute;
+  right: -30%;
+  bottom: -40%;
+  width: 70%;
+  height: 70%;
+  background: radial-gradient(circle at top, rgba(244, 192, 139, 0.25), rgba(79, 225, 196, 0.05) 60%);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  opacity: 0.6;
+  pointer-events: none;
 }
 
 .card-top p {
@@ -338,6 +354,7 @@ a {
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
   background: var(--surface);
+  background-image: radial-gradient(circle at 20% 20%, rgba(79, 225, 196, 0.08), transparent 55%);
   box-shadow: 0 20px 45px rgba(5, 10, 20, 0.35);
   backdrop-filter: blur(8px);
 }
@@ -361,8 +378,22 @@ a {
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
   background: rgba(12, 19, 30, 0.8);
+  background-image: radial-gradient(circle at 80% 20%, rgba(124, 157, 255, 0.12), transparent 60%);
   box-shadow: 0 18px 40px rgba(4, 8, 16, 0.35);
   transition: transform 0.3s ease, border-color 0.3s ease;
+  animation: float 18s ease-in-out infinite;
+}
+
+.tile:nth-child(2) {
+  animation-delay: 1.5s;
+}
+
+.tile:nth-child(3) {
+  animation-delay: 3s;
+}
+
+.tile:nth-child(4) {
+  animation-delay: 4.5s;
 }
 
 .tile h3 {
@@ -376,6 +407,7 @@ a {
 .tile:hover {
   transform: translateY(-6px);
   border-color: rgba(79, 225, 196, 0.45);
+  animation-play-state: paused;
 }
 
 .timeline {
