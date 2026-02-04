@@ -50,6 +50,7 @@ body::after {
   height: 80vh;
   background: radial-gradient(circle at 20% 80%, rgba(124, 157, 255, 0.2), transparent 60%),
     radial-gradient(circle at 70% 90%, rgba(79, 225, 196, 0.15), transparent 55%);
+  animation: aurora-drift 32s ease-in-out infinite reverse;
 }
 
 #field {
@@ -204,6 +205,45 @@ a {
   margin-bottom: 24px;
 }
 
+.physics-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.physics-stack span {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(124, 157, 255, 0.45);
+  background: rgba(10, 18, 28, 0.6);
+  color: var(--accent-3);
+  font-size: 0.85rem;
+  position: relative;
+  overflow: hidden;
+  animation: orbit-pulse 5s ease-in-out infinite;
+}
+
+.physics-stack span:nth-child(2) {
+  animation-delay: 0.8s;
+}
+
+.physics-stack span:nth-child(3) {
+  animation-delay: 1.6s;
+}
+
+.physics-stack span::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(79, 225, 196, 0.4), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.physics-stack span:hover::after {
+  opacity: 1;
+}
 .hero-actions {
   display: flex;
   gap: 16px;
@@ -680,6 +720,18 @@ textarea:focus {
   }
   100% {
     transform: translateX(120%);
+  }
+}
+
+@keyframes orbit-pulse {
+  0%,
+  100% {
+    transform: translateY(0);
+    box-shadow: 0 0 0 rgba(79, 225, 196, 0);
+  }
+  50% {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(79, 225, 196, 0.18);
   }
 }
 
