@@ -214,6 +214,10 @@ a {
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
 }
 
+.support-cta {
+  margin-top: 28px;
+}
+
 .stat {
   padding: 18px;
   border-radius: var(--radius-sm);
