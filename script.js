@@ -380,6 +380,107 @@ function initSectionSandpiles() {
   requestAnimationFrame(animate);
 }
 
+function showToast(message, level = "INFO") {
+  const stack = document.querySelector(".toast-stack");
+  if (!stack) return;
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.innerHTML = `<span class="toast-level">[${level}]</span>${message}`;
+  stack.appendChild(toast);
+  setTimeout(() => {
+    toast.remove();
+  }, 4200);
+}
+
+function initCliOverlay() {
+  const overlay = document.querySelector(".cli-overlay");
+  const toggle = document.querySelector(".cli-toggle");
+  const closeButton = document.querySelector(".cli-close");
+  const form = document.querySelector(".cli-form");
+  const input = document.querySelector(".cli-input");
+  const log = document.querySelector(".cli-log");
+
+  if (!overlay || !toggle || !closeButton || !form || !input || !log) return;
+
+  const openCli = () => {
+    overlay.classList.add("is-open");
+    overlay.setAttribute("aria-hidden", "false");
+    input.focus();
+  };
+
+  const closeCli = () => {
+    overlay.classList.remove("is-open");
+    overlay.setAttribute("aria-hidden", "true");
+  };
+
+  toggle.addEventListener("click", openCli);
+  closeButton.addEventListener("click", closeCli);
+  overlay.addEventListener("click", (event) => {
+    if (event.target === overlay) closeCli();
+  });
+
+  const commandMap = {
+    help: "Available commands: help, projects, publications, sandpile, about, contact, clear.",
+    projects: "#research",
+    publications: "#publications",
+    sandpile: "#simulations",
+    about: "#about",
+    contact: "#contact",
+  };
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const raw = input.value.trim();
+    if (!raw) return;
+    const command = raw.toLowerCase();
+    const line = document.createElement("span");
+    line.className = "log-line";
+    line.textContent = `user@cluster:~$ ${raw}`;
+    log.appendChild(line);
+
+    if (command === "clear") {
+      log.innerHTML = "";
+      input.value = "";
+      showToast("Console cleared.", "INFO");
+      return;
+    }
+
+    const response = document.createElement("span");
+    response.className = "log-line log-response";
+
+    if (commandMap[command]) {
+      if (commandMap[command].startsWith("#")) {
+        const target = document.querySelector(commandMap[command]);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth" });
+          response.textContent = `Routing to ${commandMap[command].replace("#", "/")} ...`;
+          showToast(`Navigation command executed: ${command}.`, "INFO");
+        } else {
+          response.textContent = "Target section unavailable.";
+          showToast("Target section unavailable.", "WARN");
+        }
+      } else {
+        response.textContent = commandMap[command];
+      }
+    } else {
+      response.textContent = "Unknown command. Type help for the command list.";
+      showToast(`Unknown command: ${command}.`, "WARN");
+    }
+
+    log.appendChild(response);
+    log.scrollTop = log.scrollHeight;
+    input.value = "";
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "`" && !overlay.classList.contains("is-open")) {
+      openCli();
+    } else if (event.key === "Escape" && overlay.classList.contains("is-open")) {
+      closeCli();
+    }
+  });
+}
+
 resize();
 createGrains();
 initCounters();
@@ -388,6 +489,8 @@ initReveal();
 initSmoothScroll();
 initScriptViewer();
 initSectionSandpiles();
+initCliOverlay();
+showToast("Simulation console ready.", "INFO");
 requestAnimationFrame(draw);
 
 window.addEventListener("resize", () => {
@@ -405,6 +508,7 @@ function initSimPreviews() {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
         const video = entry.target;
+        const preview = video.closest(".sim-preview");
         const sources = video.querySelectorAll("source[data-src]");
         sources.forEach((source) => {
           source.src = source.dataset.src || "";
@@ -414,8 +518,21 @@ function initSimPreviews() {
           video.src = video.dataset.src;
           video.removeAttribute("data-src");
         }
+        if (preview) {
+          preview.classList.remove("is-loaded");
+        }
         video.load();
         video.play().catch(() => {});
+        video.addEventListener(
+          "loadeddata",
+          () => {
+            if (preview) {
+              preview.classList.add("is-loaded");
+            }
+            showToast("Simulation data loaded.", "INFO");
+          },
+          { once: true }
+        );
         obs.unobserve(video);
       });
     },
