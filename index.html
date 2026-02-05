@@ -32,12 +32,16 @@
         <a href="#publications">Publications</a>
         <a href="#contact">Contact</a>
       </nav>
+      <button class="btn ghost micro cli-toggle tooltip" type="button" data-tooltip="man cli(1): open console overlay">
+        CLI
+      </button>
       <a class="btn ghost" href="#contact">Collaborate</a>
     </header>
 
     <main>
       <section class="hero" id="top">
         <div class="hero-content">
+          <div class="breadcrumb">user@cluster:~/home$</div>
           <p class="eyebrow">Stastistical and Computational Physics Researcher</p>
           <h1>
             Krishna Kumar Godara
@@ -99,6 +103,7 @@
       </section>
 
       <section class="section" id="about">
+        <div class="breadcrumb">user@cluster:~/about$</div>
         <div class="section-title">
           <h2>About</h2>
           <p>Education, skills, and the foundations of my research practice.</p>
@@ -152,6 +157,7 @@
 
       <section class="section sandpile-section" id="research">
         <canvas class="sandpile-canvas" aria-hidden="true"></canvas>
+        <div class="breadcrumb">user@cluster:~/research$</div>
         <div class="section-title">
           <h2>Research Themes</h2>
           <p>Simulations, theory, and experimentation for soft matter and biological physics.</p>
@@ -193,7 +199,13 @@
                 <h3>LAMMPS Input Deck</h3>
                 <p class="panel-subtitle">Terminal-inspired script layout for active matter studies.</p>
               </div>
-              <button class="btn ghost micro run-btn" type="button">Run Simulation</button>
+              <button
+                class="btn ghost micro run-btn tooltip"
+                type="button"
+                data-tooltip="man run(1): queue LAMMPS job"
+              >
+                Run Simulation
+              </button>
             </div>
             <pre class="lammps-code" id="research-script"><code><span class="code-line"><span class="token keyword">units</span> lj</span>
 <span class="code-line"><span class="token keyword">dimension</span> 2</span>
@@ -265,10 +277,60 @@
             </div>
           </div>
         </div>
+        <div class="directory-panel" data-reveal>
+          <div class="panel-header">
+            <div>
+              <span class="panel-eyebrow">Directory Tree</span>
+              <h3>Simulation Index</h3>
+              <p class="panel-subtitle">Expandable research folders for granular and active matter runs.</p>
+            </div>
+          </div>
+          <div class="directory-tree">
+            <details open>
+              <summary>/projects/granular/</summary>
+              <ul>
+                <li>
+                  <details>
+                    <summary>jamming/</summary>
+                    <ul>
+                      <li>in.jamming</li>
+                      <li>analysis.ipynb</li>
+                      <li>figures/</li>
+                    </ul>
+                  </details>
+                </li>
+                <li>
+                  <details>
+                    <summary>avalanches/</summary>
+                    <ul>
+                      <li>in.sandpile</li>
+                      <li>runlog.dat</li>
+                    </ul>
+                  </details>
+                </li>
+              </ul>
+            </details>
+            <details>
+              <summary>/projects/active-matter/</summary>
+              <ul>
+                <li>swarm-field.in</li>
+                <li>phase-map.json</li>
+              </ul>
+            </details>
+            <details>
+              <summary>/projects/complex-networks/</summary>
+              <ul>
+                <li>graph-kernels.py</li>
+                <li>topology-notes.md</li>
+              </ul>
+            </details>
+          </div>
+        </div>
       </section>
 
       <section class="section sandpile-section" id="simulations">
         <canvas class="sandpile-canvas" aria-hidden="true"></canvas>
+        <div class="breadcrumb">user@cluster:~/simulations$</div>
         <div class="section-title">
           <h2>Granular Simulations</h2>
           <p>Lazy-loaded previews of sandpile flow, clustering, and jamming regimes.</p>
@@ -276,6 +338,10 @@
         <div class="grid three sim-grid" data-reveal>
           <article class="sim-card">
             <div class="sim-preview">
+              <div class="sim-loader">
+                <span class="loader-label">Loading dataset<span class="blink-cursor" aria-hidden="true"></span></span>
+                <div class="loader-bar"><span></span></div>
+              </div>
               <video class="sim-video" muted playsinline loop preload="none" data-src>
                 <source
                   data-src="https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3b/Avalanche_on_sandpile.ogv/Avalanche_on_sandpile.ogv.360p.webm"
@@ -292,6 +358,10 @@
           </article>
           <article class="sim-card">
             <div class="sim-preview">
+              <div class="sim-loader">
+                <span class="loader-label">Loading dataset<span class="blink-cursor" aria-hidden="true"></span></span>
+                <div class="loader-bar"><span></span></div>
+              </div>
               <video class="sim-video" muted playsinline loop preload="none" data-src>
                 <source
                   data-src="https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7b/Sandpile_avalanching.ogv/Sandpile_avalanching.ogv.360p.webm"
@@ -308,6 +378,10 @@
           </article>
           <article class="sim-card">
             <div class="sim-preview">
+              <div class="sim-loader">
+                <span class="loader-label">Loading dataset<span class="blink-cursor" aria-hidden="true"></span></span>
+                <div class="loader-bar"><span></span></div>
+              </div>
               <video class="sim-video" muted playsinline loop preload="none" data-src>
                 <source
                   data-src="https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9f/Granular_flow_in_a_rotating_drum.ogv/Granular_flow_in_a_rotating_drum.ogv.360p.webm"
@@ -339,8 +413,19 @@
                 <p class="panel-subtitle">Copy-ready input with annotated run stages.</p>
               </div>
               <div class="viewer-actions">
-                <button class="btn ghost micro run-btn" type="button">Run Simulation</button>
-                <button class="btn ghost micro copy-btn" type="button" data-copy-target="sim-script-code">
+                <button
+                  class="btn ghost micro run-btn tooltip"
+                  type="button"
+                  data-tooltip="man run(1): execute shear cell input"
+                >
+                  Run Simulation
+                </button>
+                <button
+                  class="btn ghost micro copy-btn tooltip"
+                  type="button"
+                  data-copy-target="sim-script-code"
+                  data-tooltip="man copy(1): copy input deck"
+                >
                   Copy
                 </button>
               </div>
@@ -400,6 +485,7 @@
       </section>
 
       <section class="section" id="awards">
+        <div class="breadcrumb">user@cluster:~/awards$</div>
         <div class="section-title">
           <h2>Awards & Achievements</h2>
           <p>Recognition across national-level competitive exams.</p>
@@ -423,6 +509,7 @@
       </section>
 
       <section class="section" id="certificates">
+        <div class="breadcrumb">user@cluster:~/certs$</div>
         <div class="section-title">
           <h2>Certificates</h2>
           <p>Verified credentials and specialized courses.</p>
@@ -483,6 +570,7 @@
         </div>
       </section>
       <section class="section" id="publications">
+        <div class="breadcrumb">user@cluster:~/publications$</div>
         <div class="section-title">
           <h2>Publications & Presentations</h2>
           <p>Research communication and scholarly outputs.</p>
@@ -514,6 +602,7 @@
 
 
       <section class="section contact" id="contact">
+        <div class="breadcrumb">user@cluster:~/contact$</div>
         <div class="section-title">
           <h2>Contact</h2>
           <p>Let us collaborate on active matter, simulations, or computational physics.</p>
@@ -546,6 +635,29 @@
         </div>
       </section>
     </main>
+
+    <div class="toast-stack" aria-live="polite" aria-atomic="true"></div>
+
+    <div class="cli-overlay" aria-hidden="true">
+      <div class="cli-panel" role="dialog" aria-modal="true" aria-label="CLI console panel">
+        <div class="cli-header">
+          <div>
+            <span class="panel-eyebrow">Interactive Console</span>
+            <h3>Cluster CLI Overlay</h3>
+            <p class="panel-subtitle">Type help, projects, publications, sandpile, or clear.</p>
+          </div>
+          <button class="btn ghost micro cli-close tooltip" type="button" data-tooltip="man exit(1): close panel">
+            Close
+          </button>
+        </div>
+        <div class="cli-log" aria-live="polite"></div>
+        <form class="cli-form" autocomplete="off">
+          <span class="cli-prompt">user@cluster:~$</span>
+          <input class="cli-input" type="text" name="cli" placeholder="Enter command" />
+          <span class="cli-cursor" aria-hidden="true"></span>
+        </form>
+      </div>
+    </div>
 
     <footer class="footer">
       <p>© 2026 Krishna Kumar Godara.</p>
