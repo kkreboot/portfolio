@@ -1335,6 +1335,26 @@ html:not(.light) .ski-item--wide .ski-icon img[alt="OVITO"] {
 .footer-top { transition: color .2s; }
 .footer-top:hover { color: var(--accent); }
 
+.footer-claude {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .75rem;
+  color: var(--txt-3);
+  transition: color .2s;
+}
+.footer-claude:hover { color: var(--txt-2); }
+
+.footer-claude-logo {
+  width: 14px;
+  height: 14px;
+  opacity: .55;
+  transition: opacity .2s;
+  filter: invert(0);
+}
+html.light .footer-claude-logo { filter: invert(1) brightness(0.4); }
+.footer-claude:hover .footer-claude-logo { opacity: .9; }
+
 /* ─────────────────────────────────────────────────────────
    Toasts
    ───────────────────────────────────────────────────────── */
