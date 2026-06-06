@@ -220,7 +220,7 @@ function initThemeToggle() {
   if (!btn) return;
 
   const stored = localStorage.getItem("theme");
-  if (stored === "light") document.documentElement.classList.add("light");
+  if (stored !== "dark") document.documentElement.classList.add("light");
 
   btn.addEventListener("click", () => {
     const isLight = document.documentElement.classList.toggle("light");
