@@ -511,16 +511,8 @@ h4 { font-size: 1rem; font-weight: 600; }
   display: block;
 }
 
-.ski-badge {
-  border-radius: 6px;
-  font-weight: 700;
-  font-family: var(--f-mono);
-  font-size: .65rem;
-  letter-spacing: .5px;
-}
-.ski-badge--tex  { background: rgba(68,114,196,.15); color: #4472c4; border: 1px solid rgba(68,114,196,.3); }
-.ski-badge--sim  { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border); font-size: .8rem; }
-.ski-badge--sci  { background: rgba(74,222,128,.1); color: #22c55e; border: 1px solid rgba(74,222,128,.25); font-size: 1rem; }
+/* notion.svg is black — invert in dark mode */
+html:not(.light) .ski-icon img[alt="Notion"] { filter: invert(1); }
 
 .ski-item > span {
   font-size: .58rem;
