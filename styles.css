@@ -411,6 +411,7 @@ h4 { font-size: 1rem; font-weight: 600; }
 .section {
   padding: 88px 0;
   position: relative;
+  scroll-margin-top: var(--nav-h);
 }
 
 .section-alt { background: var(--bg-alt); }
@@ -1213,9 +1214,9 @@ h4 { font-size: 1rem; font-weight: 600; }
 }
 .soc-btn:hover { background: var(--surface-2); color: var(--txt); }
 
-.soc-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+.soc-btn svg { width: 17px; height: 17px; flex-shrink: 0; display: block; }
 
-.contact-right {}
+.contact-right { min-width: 0; }
 
 .whatsapp-card {
   background: var(--surface);

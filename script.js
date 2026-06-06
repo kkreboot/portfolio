@@ -118,14 +118,18 @@ function initReveal() {
   document.querySelectorAll("[data-reveal]").forEach(el => io.observe(el));
 }
 
-/* ── Smooth scroll ───────────────────────────────── */
+/* ── Smooth scroll (accounts for sticky nav) ────── */
 function initScroll() {
+  const NAV_H = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--nav-h")) || 62;
   document.querySelectorAll("a[href^='#']").forEach(a => {
     a.addEventListener("click", e => {
       const href = a.getAttribute("href");
       if (!href || href === "#") return;
+      const target = document.querySelector(href);
+      if (!target) return;
       e.preventDefault();
-      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
+      const top = target.getBoundingClientRect().top + window.scrollY - NAV_H;
+      window.scrollTo({ top, behavior: "smooth" });
     });
   });
 }
@@ -205,6 +209,11 @@ function toast(msg) {
 
 /* ── Init ────────────────────────────────────────── */
 document.addEventListener("DOMContentLoaded", () => {
+  /* Active nav highlight style */
+  const style = document.createElement("style");
+  style.textContent = ".nav-links a.active-nav { color: #eaedf5; font-weight: 500; }";
+  document.head.appendChild(style);
+
   initCounters();
   initFilters();
   initReveal();
@@ -213,8 +222,3 @@ document.addEventListener("DOMContentLoaded", () => {
   initSimVideos();
   initActiveNav();
 });
-
-/* Active nav style */
-const style = document.createElement("style");
-style.textContent = ".nav-links a.active-nav { color: #eaedf5; }";
-document.head.append(style);
