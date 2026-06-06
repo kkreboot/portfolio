@@ -5,12 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Krishna Kumar Godara — Computational Physics</title>
     <meta name="description" content="JRF PhD Research Fellow at IIT Jodhpur. Active matter, molecular dynamics, and non-equilibrium systems." />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%23818cf8'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='700' font-size='22' fill='white'>KKG</text></svg>" />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://kkreboot.github.io/portfolio/" />
+    <meta property="og:title" content="Krishna Kumar Godara — Computational Physics" />
+    <meta property="og:description" content="JRF PhD Research Fellow at IIT Jodhpur working on active matter, molecular dynamics, and non-equilibrium systems." />
+    <meta property="og:image" content="photo.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Krishna Kumar Godara — Computational Physics" />
+    <meta name="twitter:description" content="JRF PhD Research Fellow at IIT Jodhpur working on active matter, molecular dynamics, and non-equilibrium systems." />
+    <meta name="twitter:image" content="photo.png" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <!-- Reading progress bar -->
+    <div class="progress-bar" id="progress-bar" aria-hidden="true"></div>
+
     <!-- Particle canvas -->
     <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
@@ -18,17 +36,28 @@
     <header class="nav" id="top">
       <div class="container nav-inner">
         <a href="#top" class="brand">KKG<span>.</span></a>
-        <nav class="nav-links" aria-label="Primary">
+        <nav class="nav-links" id="nav-links" aria-label="Primary">
           <a href="#about">About</a>
           <a href="#research">Research</a>
-          <a href="#projects">Projects</a>
           <a href="#awards">Awards</a>
+          <a href="#conferences">Conferences</a>
+          <a href="#projects">Projects</a>
+          <a href="#publications">Publications</a>
           <a href="#contact">Contact</a>
         </nav>
-        <a href="https://github.com/kkreboot" target="_blank" rel="noopener" class="nav-github" aria-label="GitHub profile">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-        </a>
-        <a href="Resume_v2_1.pdf" target="_blank" rel="noopener" class="nav-cta">Resume ↗</a>
+        <div class="nav-actions">
+          <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">
+            <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          </button>
+          <a href="https://github.com/kkreboot" target="_blank" rel="noopener" class="nav-github" aria-label="GitHub profile">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          </a>
+          <a href="Resume_v2_1.pdf" target="_blank" rel="noopener" class="nav-cta">Resume ↗</a>
+          <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
       </div>
     </header>
 
@@ -107,7 +136,7 @@
             <div class="about-bio">
               <h3>Profile</h3>
               <p>An enthusiastic and motivated physicist with a strong passion for research in complex physical systems. Combining computational simulation with analytical methods to study phenomena far from equilibrium — from active biological matter to granular avalanches.</p>
-              <p>Currently pursuing a PhD under the supervision of Dr. Prabhat K. Jaiswal at IIT Jodhpur, with a focus on active matter physics and non-linear dynamics.</p>
+              <p>Currently pursuing a PhD under the supervision of <a href="https://iitj.ac.in/department/index.php?id=physics&deptid=phy&fid=prabhat" target="_blank" rel="noopener noreferrer" class="inline-link">Dr. Prabhat K. Jaiswal</a> at IIT Jodhpur, with a focus on active matter physics and non-linear dynamics.</p>
 
               <div class="skills-block">
                 <h4>Technical Skills</h4>
@@ -130,7 +159,7 @@
                       <p class="edu-year">2024 – Present</p>
                       <p class="edu-degree">PhD Research Fellow (JRF)</p>
                       <p class="edu-inst">Indian Institute of Technology Jodhpur</p>
-                      <p class="edu-detail">Supervisor: Dr. Prabhat K. Jaiswal</p>
+                      <p class="edu-detail">Supervisor: <a href="https://iitj.ac.in/department/index.php?id=physics&deptid=phy&fid=prabhat" target="_blank" rel="noopener noreferrer" class="inline-link">Dr. Prabhat K. Jaiswal</a></p>
                     </div>
                   </div>
                   <div class="edu-item">
@@ -250,11 +279,47 @@
         </div>
       </section>
 
-      <!-- Certificates -->
-      <section class="section section-alt" id="certificates">
+      <!-- Conferences & Workshops -->
+      <section class="section section-alt" id="conferences">
         <div class="container">
           <div class="section-head" data-reveal>
             <p class="section-num">04</p>
+            <h2>Conferences &amp; Workshops</h2>
+            <p class="section-sub">Academic events and community engagement.</p>
+          </div>
+
+          <div class="conf-grid" data-reveal>
+            <div class="conf-card conf-card--featured">
+              <div class="conf-year">2025</div>
+              <div class="conf-body">
+                <span class="conf-type">Workshop</span>
+                <h3>CompFlu 2025</h3>
+                <p class="conf-venue">National Conference on Complex Fluids &amp; Soft Matter</p>
+                <p class="conf-loc">IISc Bangalore, Karnataka, India</p>
+                <p class="conf-detail">Attended workshop sessions on computational approaches to complex fluids, soft matter rheology, and active systems.</p>
+                <div class="conf-tags"><span>Active Matter</span><span>Complex Fluids</span><span>Soft Matter</span></div>
+              </div>
+            </div>
+            <div class="conf-card">
+              <div class="conf-year">2023</div>
+              <div class="conf-body">
+                <span class="conf-type">Workshop</span>
+                <h3>ATMB 2023</h3>
+                <p class="conf-venue">Advanced Topics in Molecular Biology</p>
+                <p class="conf-loc">IIIT Delhi</p>
+                <p class="conf-detail">Interdisciplinary workshop covering computational biology methods, network analysis, and biophysical simulations.</p>
+                <div class="conf-tags"><span>Computational Biology</span><span>Biophysics</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Certificates -->
+      <section class="section" id="certificates">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <p class="section-num">05</p>
             <h2>Certificates</h2>
             <p class="section-sub">Verified credentials and specialized training.</p>
           </div>
@@ -318,10 +383,10 @@
       </section>
 
       <!-- GitHub Projects -->
-      <section class="section" id="projects">
+      <section class="section section-alt" id="projects">
         <div class="container">
           <div class="section-head" data-reveal>
-            <p class="section-num">05</p>
+            <p class="section-num">06</p>
             <h2>Projects</h2>
             <p class="section-sub">Open-source work on GitHub.</p>
           </div>
@@ -373,11 +438,39 @@
         </div>
       </section>
 
-      <!-- Contact -->
-      <section class="section" id="contact">
+      <!-- Publications -->
+      <section class="section" id="publications">
         <div class="container">
           <div class="section-head" data-reveal>
-            <p class="section-num">06</p>
+            <p class="section-num">07</p>
+            <h2>Publications</h2>
+            <p class="section-sub">Research manuscripts and scholarly contributions.</p>
+          </div>
+
+          <div class="pub-list" data-reveal>
+            <div class="pub-card pub-card--prep">
+              <div class="pub-status">In Preparation</div>
+              <h3 class="pub-title">Motility-Induced Phase Separation in Active Brownian Particles: A Computational Study</h3>
+              <p class="pub-authors">Krishna Kumar Godara, Prabhat K. Jaiswal</p>
+              <p class="pub-venue">Target: Journal of Chemical Physics / Soft Matter</p>
+              <p class="pub-note">Manuscript in preparation. Preliminary results presented at CompFlu 2025.</p>
+              <div class="pub-tags"><span>Active Matter</span><span>MIPS</span><span>LAMMPS</span></div>
+            </div>
+          </div>
+
+          <p class="pub-footer-note" data-reveal>
+            More papers coming soon. Track updates on
+            <a href="https://scholar.google.com" target="_blank" rel="noopener noreferrer" class="inline-link">Google Scholar</a>
+            or <a href="https://orcid.org" target="_blank" rel="noopener noreferrer" class="inline-link">ORCID</a>.
+          </p>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="section section-alt" id="contact">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <p class="section-num">08</p>
             <h2>Contact</h2>
             <p class="section-sub">Open for collaboration in computational physics and simulation.</p>
           </div>
@@ -408,6 +501,18 @@
                   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0.5 8.5h4V23h-4V8.5zM8 8.5h3.8v2h0.1c.5-1 1.8-2.1 3.8-2.1 4.1 0 4.9 2.7 4.9 6.2V23h-4v-7.3c0-1.7 0-3.9-2.4-3.9s-2.8 1.9-2.8 3.8V23H8V8.5z"/></svg>
                   LinkedIn
                 </a>
+                <a href="https://scholar.google.com/citations?user=PLACEHOLDER" target="_blank" rel="noopener noreferrer" class="soc-btn">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z"/></svg>
+                  Scholar
+                </a>
+                <a href="https://www.researchgate.net/profile/Krishna-Kumar-Godara" target="_blank" rel="noopener noreferrer" class="soc-btn">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.586 0c-.818 0-1.508.19-2.073.565-.563.377-.97.936-1.213 1.68a12.108 12.108 0 0 0-.198 2.284c-.01.53-.01 1.047.012 1.554h-6.64a2.37 2.37 0 0 0-2.37 2.37v6.614a2.37 2.37 0 0 0 2.37 2.37h3.07v5.123a1.842 1.842 0 0 0 3.684 0V17.437h3.07a2.37 2.37 0 0 0 2.37-2.37V8.453a2.37 2.37 0 0 0-2.37-2.37h-.04c.022-.506.022-1.023.012-1.554a10.09 10.09 0 0 1 .128-1.68c.123-.546.37-.963.73-1.248.358-.285.838-.427 1.436-.427.407 0 .84.068 1.306.205.464.136.87.326 1.215.568l.41-1.18a5.667 5.667 0 0 0-1.46-.695A5.9 5.9 0 0 0 19.586 0z"/></svg>
+                  ResearchGate
+                </a>
+                <a href="https://orcid.org/0000-0000-0000-0000" target="_blank" rel="noopener noreferrer" class="soc-btn">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 0 1-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.016-5.325 5.016h-3.919V7.416zm1.444 1.303v7.444h2.297c3.272 0 3.872-2.484 3.872-3.722 0-2.016-1.284-3.722-3.872-3.722h-2.297z"/></svg>
+                  ORCID
+                </a>
                 <a href="https://www.instagram.com/kk_godara_/" target="_blank" rel="noopener noreferrer" class="soc-btn">
                   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2.5h10A4.5 4.5 0 0 1 21.5 7v10A4.5 4.5 0 0 1 17 21.5H7A4.5 4.5 0 0 1 2.5 17V7A4.5 4.5 0 0 1 7 2.5zm0 2A2.5 2.5 0 0 0 4.5 7v10A2.5 2.5 0 0 0 7 19.5h10a2.5 2.5 0 0 0 2.5-2.5V7A2.5 2.5 0 0 0 17 4.5H7zm5 3.5a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.25-2.75a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5z"/></svg>
                   Instagram
@@ -434,6 +539,11 @@
         </div>
       </section>
     </main>
+
+    <!-- Back to top -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top" title="Back to top">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
 
     <footer class="footer">
       <div class="container footer-inner">

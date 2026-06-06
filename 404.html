@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>404 — Page Not Found · KKG</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%23818cf8'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='700' font-size='22' fill='white'>KKG</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #08090e; --bg-alt: #0e1019; --surface: #13161f;
+        --txt: #eaedf5; --txt-2: #a0a8bc; --txt-3: #5c6480;
+        --accent: #818cf8; --accent-light: #a5b0ff;
+        --accent-dim: rgba(129,140,248,.12); --accent-border: rgba(129,140,248,.28);
+        --border: rgba(255,255,255,0.07); --border-2: rgba(255,255,255,0.12);
+        --r: 14px; --r-lg: 20px;
+        --f-serif: "Lora", Georgia, serif;
+        --f-sans: "Inter", system-ui, sans-serif;
+        --f-mono: "JetBrains Mono", monospace;
+      }
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body {
+        font-family: var(--f-sans);
+        color: var(--txt);
+        background: var(--bg);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 40px 24px;
+        -webkit-font-smoothing: antialiased;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background:
+          radial-gradient(ellipse 70% 45% at 60% 0%, rgba(129,140,248,.07) 0%, transparent 60%),
+          radial-gradient(ellipse 55% 40% at 10% 80%, rgba(99,120,220,.05) 0%, transparent 60%);
+        pointer-events: none;
+        z-index: 0;
+      }
+      .wrap {
+        position: relative;
+        z-index: 1;
+        max-width: 520px;
+      }
+      .code {
+        font-family: var(--f-mono);
+        font-size: clamp(5rem, 20vw, 9rem);
+        font-weight: 700;
+        line-height: 1;
+        background: linear-gradient(135deg, var(--accent), var(--accent-light));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 20px;
+        letter-spacing: -.04em;
+      }
+      h1 {
+        font-family: var(--f-serif);
+        font-size: clamp(1.6rem, 4vw, 2.4rem);
+        font-weight: 500;
+        line-height: 1.25;
+        margin-bottom: 16px;
+      }
+      p {
+        font-size: 1rem;
+        color: var(--txt-2);
+        line-height: 1.72;
+        margin-bottom: 36px;
+      }
+      .actions {
+        display: flex;
+        gap: 14px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 11px 26px;
+        border-radius: var(--r);
+        font-size: .92rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: transform .2s, box-shadow .2s, background .2s;
+        border: none;
+      }
+      .btn:hover { transform: translateY(-1px); }
+      .btn-primary {
+        background: var(--accent);
+        color: #0d0e1a;
+        box-shadow: 0 4px 20px rgba(129,140,248,.25);
+      }
+      .btn-primary:hover {
+        background: var(--accent-light);
+        box-shadow: 0 6px 28px rgba(129,140,248,.4);
+      }
+      .btn-outline {
+        background: transparent;
+        color: var(--txt);
+        border: 1px solid var(--border-2);
+      }
+      .btn-outline:hover {
+        border-color: var(--accent-border);
+        color: var(--accent-light);
+      }
+      .brand {
+        position: fixed;
+        top: 20px;
+        left: 24px;
+        font-family: var(--f-serif);
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--txt);
+        text-decoration: none;
+        z-index: 1;
+      }
+      .brand span { color: var(--accent); }
+    </style>
+  </head>
+  <body>
+    <a href="index.html" class="brand">KKG<span>.</span></a>
+    <div class="wrap">
+      <div class="code">404</div>
+      <h1>Page not found</h1>
+      <p>The page you're looking for doesn't exist or may have moved. Head back to the portfolio or explore the research.</p>
+      <div class="actions">
+        <a href="index.html" class="btn btn-primary">← Back to Portfolio</a>
+        <a href="index.html#research" class="btn btn-outline">View Research</a>
+      </div>
+    </div>
+  </body>
+</html>
