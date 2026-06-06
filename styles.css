@@ -514,6 +514,44 @@ h4 { font-size: 1rem; font-weight: 600; }
 /* notion.svg is black — invert in dark mode */
 html:not(.light) .ski-icon img[alt="Notion"] { filter: invert(1); }
 
+/* Wide variant for logos that include text (GROMACS, LAMMPS, OVITO) */
+.ski-grid--wide {
+  flex-direction: column;
+  gap: 8px;
+}
+.ski-item--wide {
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px 16px;
+  gap: 0;
+}
+.ski-item--wide .ski-icon {
+  width: auto;
+  height: 36px;
+  flex-shrink: 0;
+}
+.ski-item--wide .ski-icon img {
+  width: auto;
+  height: 36px;
+  max-width: 180px;
+  object-fit: contain;
+}
+/* LAMMPS has dark background — keep as-is; add subtle border */
+.ski-item--wide .ski-icon img[alt="LAMMPS"] {
+  border-radius: 4px;
+}
+/* GROMACS / OVITO have white bg — in dark mode they need a slight tint */
+html:not(.light) .ski-item--wide .ski-icon img[alt="GROMACS"],
+html:not(.light) .ski-item--wide .ski-icon img[alt="OVITO"] {
+  filter: brightness(0.9) contrast(1.05);
+  background: rgba(255,255,255,0.06);
+  border-radius: 4px;
+}
+/* Hide redundant text label for wide items (name is in the logo) */
+.ski-item--wide > span { display: none; }
+
 .ski-item > span {
   font-size: .58rem;
   color: var(--txt-3);
