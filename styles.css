@@ -327,34 +327,6 @@ h4 { font-size: 1rem; font-weight: 600; }
   object-fit: cover;
 }
 
-.photo-card {
-  width: 100%;
-  max-width: 240px;
-  padding: 16px 20px;
-  background: var(--surface);
-  border: 1px solid var(--accent-border);
-  border-radius: var(--r);
-  text-align: center;
-  box-shadow: var(--shadow-sm);
-}
-
-.card-sup {
-  font-size: .7rem;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--txt-3);
-  margin-bottom: 6px;
-}
-
-.card-rank {
-  font-family: var(--f-serif);
-  font-size: 1.1rem;
-  color: var(--txt);
-  margin-bottom: 2px;
-}
-.card-rank strong { font-size: 2.2rem; color: var(--accent); line-height: 1; display: block; }
-
-.card-score { font-size: .8rem; color: var(--txt-2); }
 
 /* ─────────────────────────────────────────────────────────
    Stats Bar
