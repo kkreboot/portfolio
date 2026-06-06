@@ -63,7 +63,7 @@
           </div>
           <div class="hero-photo-wrap">
             <div class="photo-frame">
-              <img src="logo.png" alt="Krishna Kumar Godara" class="hero-photo" />
+              <img src="photo.png" alt="Krishna Kumar Godara" class="hero-photo" />
             </div>
             <div class="photo-card">
               <p class="card-sup">CSIR NET-JRF 2024</p>
@@ -201,81 +201,6 @@
             </div>
           </div>
 
-          <!-- LAMMPS terminal block -->
-          <div class="terminal-block" data-reveal>
-            <div class="terminal-bar">
-              <span class="t-dot t-red"></span>
-              <span class="t-dot t-yellow"></span>
-              <span class="t-dot t-green"></span>
-              <span class="t-title">in.active_matter.lammps</span>
-              <button class="t-copy btn-micro copy-btn" data-copy-target="lammps-code-main">Copy</button>
-            </div>
-            <pre class="t-code" id="lammps-code-main"><code><span class="ln">1</span>  <span class="kw">units</span>      lj
-<span class="ln">2</span>  <span class="kw">dimension</span>  2
-<span class="ln">3</span>  <span class="kw">atom_style</span> sphere
-<span class="ln">4</span>  <span class="cm"># Active Brownian Particle simulation</span>
-<span class="ln">5</span>  <span class="kw">pair_style</span> gran/hertz/history <span class="nm">1.0</span> <span class="nm">1.0</span> <span class="nm">0.5</span> <span class="nm">0.1</span> <span class="nm">0.0</span>
-<span class="ln">6</span>  <span class="kw">fix</span>        drive all nve/sphere
-<span class="ln">7</span>  <span class="kw">fix</span>        thermostat all langevin <span class="nm">1.0</span> <span class="nm">1.0</span> <span class="nm">1.0</span> <span class="nm">48279</span>
-<span class="ln">8</span>  <span class="kw">thermo</span>     <span class="nm">200</span>
-<span class="ln">9</span>  <span class="kw">dump</span>       pile all custom <span class="nm">500</span> dump.sand id type x y vx vy
-<span class="ln">10</span> <span class="kw">run</span>        <span class="nm">100000</span></code></pre>
-          </div>
-
-          <!-- Simulations -->
-          <div class="sim-section" data-reveal>
-            <h3 class="sim-title">Granular Simulation Previews</h3>
-            <div class="sim-grid">
-              <article class="sim-card">
-                <div class="sim-media">
-                  <div class="sim-loader">
-                    <span class="loader-text">Loading<span class="blink">_</span></span>
-                    <div class="loader-track"><span class="loader-fill"></span></div>
-                  </div>
-                  <video class="sim-video" muted playsinline loop preload="none">
-                    <source data-src="https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3b/Avalanche_on_sandpile.ogv/Avalanche_on_sandpile.ogv.360p.webm" type="video/webm" />
-                    <source data-src="https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3b/Avalanche_on_sandpile.ogv/Avalanche_on_sandpile.ogv.360p.mp4" type="video/mp4" />
-                  </video>
-                </div>
-                <div class="sim-info">
-                  <h4>Granular Avalanche</h4>
-                  <p>Gravity-driven cascades with critical angle detection.</p>
-                </div>
-              </article>
-              <article class="sim-card">
-                <div class="sim-media">
-                  <div class="sim-loader">
-                    <span class="loader-text">Loading<span class="blink">_</span></span>
-                    <div class="loader-track"><span class="loader-fill"></span></div>
-                  </div>
-                  <video class="sim-video" muted playsinline loop preload="none">
-                    <source data-src="https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7b/Sandpile_avalanching.ogv/Sandpile_avalanching.ogv.360p.webm" type="video/webm" />
-                    <source data-src="https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7b/Sandpile_avalanching.ogv/Sandpile_avalanching.ogv.360p.mp4" type="video/mp4" />
-                  </video>
-                </div>
-                <div class="sim-info">
-                  <h4>Jamming Front</h4>
-                  <p>Clustering regimes with localized jam formation.</p>
-                </div>
-              </article>
-              <article class="sim-card">
-                <div class="sim-media">
-                  <div class="sim-loader">
-                    <span class="loader-text">Loading<span class="blink">_</span></span>
-                    <div class="loader-track"><span class="loader-fill"></span></div>
-                  </div>
-                  <video class="sim-video" muted playsinline loop preload="none">
-                    <source data-src="https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9f/Granular_flow_in_a_rotating_drum.ogv/Granular_flow_in_a_rotating_drum.ogv.360p.webm" type="video/webm" />
-                    <source data-src="https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9f/Granular_flow_in_a_rotating_drum.ogv/Granular_flow_in_a_rotating_drum.ogv.360p.mp4" type="video/mp4" />
-                  </video>
-                </div>
-                <div class="sim-info">
-                  <h4>Rotating Drum Flow</h4>
-                  <p>Shear-driven granular mixing and segregation.</p>
-                </div>
-              </article>
-            </div>
-          </div>
         </div>
       </section>
 

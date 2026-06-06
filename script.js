@@ -134,49 +134,6 @@ function initScroll() {
   });
 }
 
-/* ── Copy buttons ────────────────────────────────── */
-function initCopy() {
-  document.querySelectorAll(".copy-btn").forEach(btn => {
-    btn.addEventListener("click", async () => {
-      const id = btn.dataset.copyTarget;
-      const block = id && document.getElementById(id);
-      if (!block) return;
-      const text = block.innerText.replace(/^\d+\s/gm, "").trim(); // strip line numbers
-      try { await navigator.clipboard.writeText(text); }
-      catch {
-        const ta = Object.assign(document.createElement("textarea"), {
-          value: text, style: "position:fixed;opacity:0"
-        });
-        document.body.append(ta);
-        ta.select(); document.execCommand("copy"); ta.remove();
-      }
-      const orig = btn.textContent;
-      btn.textContent = "Copied!";
-      setTimeout(() => btn.textContent = orig, 1800);
-    });
-  });
-}
-
-/* ── Lazy simulation videos ──────────────────────── */
-function initSimVideos() {
-  const io = new IntersectionObserver((entries, obs) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const video = entry.target;
-      const card = video.closest(".sim-card");
-      video.querySelectorAll("source[data-src]").forEach(s => {
-        s.src = s.dataset.src;
-        s.removeAttribute("data-src");
-      });
-      video.load();
-      video.play().catch(() => {});
-      video.addEventListener("loadeddata", () => card?.classList.add("loaded"), { once: true });
-      obs.unobserve(video);
-    });
-  }, { threshold: .2 });
-
-  document.querySelectorAll(".sim-video").forEach(v => io.observe(v));
-}
 
 /* ── Active nav highlight on scroll ─────────────── */
 function initActiveNav() {
@@ -218,7 +175,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initFilters();
   initReveal();
   initScroll();
-  initCopy();
-  initSimVideos();
   initActiveNav();
 });
