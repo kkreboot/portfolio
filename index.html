@@ -3,541 +3,501 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Krishna Kumar Godara | Computational Physics Researcher</title>
-    <meta
-      name="description"
-      content="Portfolio of Krishna Kumar Godara, JRF PhD research fellow at IIT Jodhpur specializing in molecular dynamics, active matter, and non-equilibrium systems."
-    />
+    <title>Krishna Kumar Godara — Computational Physics</title>
+    <meta name="description" content="JRF PhD Research Fellow at IIT Jodhpur. Active matter, molecular dynamics, and non-equilibrium systems." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <canvas id="field" aria-hidden="true"></canvas>
+    <!-- Particle canvas -->
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
+    <!-- Navigation -->
     <header class="nav" id="top">
-      <div class="nav-inner">
-        <a href="#top" class="logo">
-          <img src="logo.png" alt="Krishna Kumar Godara" />
-          <span class="logo-text">KK<span>.</span>Godara</span>
-        </a>
-        <nav aria-label="Main navigation">
+      <div class="container nav-inner">
+        <a href="#top" class="brand">KKG<span>.</span></a>
+        <nav class="nav-links" aria-label="Primary">
           <a href="#about">About</a>
           <a href="#research">Research</a>
-          <a href="#simulations">Simulations</a>
+          <a href="#awards">Awards</a>
           <a href="#publications">Publications</a>
           <a href="#contact">Contact</a>
         </nav>
-        <a href="Resume_v2_1.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-sm">Resume</a>
+        <a href="Resume_v2_1.pdf" target="_blank" rel="noopener" class="nav-cta">Resume ↗</a>
       </div>
     </header>
 
     <main>
+      <!-- Hero -->
       <section class="hero" id="hero">
-        <div class="hero-content">
-          <p class="eyebrow">JRF · IIT Jodhpur · Computational Physics</p>
-          <h1>Krishna Kumar<br /><em>Godara</em></h1>
-          <p class="lead">
-            Investigating emergent phenomena in active matter, granular systems, and non-equilibrium dynamics through molecular simulation and statistical mechanics.
-          </p>
-          <div class="physics-tags">
-            <span>Active Matter</span>
-            <span>Molecular Dynamics</span>
-            <span>Non-Equilibrium Systems</span>
-            <span>Complex Networks</span>
+        <div class="container hero-inner">
+          <div class="hero-text">
+            <div class="hero-badge">
+              <span class="badge-dot"></span>
+              Available for collaboration
+            </div>
+            <h1>
+              Krishna Kumar<br />
+              <em>Godara</em>
+            </h1>
+            <p class="hero-role">JRF · PhD Research Fellow · IIT Jodhpur</p>
+            <p class="hero-bio">
+              Computational physicist studying emergent behaviour in active matter and non-equilibrium systems. Working under Dr. Prabhat K. Jaiswal on self-propelled particle dynamics, granular criticality, and phase transitions.
+            </p>
+            <div class="hero-tags">
+              <span>Active Matter</span>
+              <span>Molecular Dynamics</span>
+              <span>Non-Equilibrium</span>
+              <span>LAMMPS</span>
+              <span>Python</span>
+            </div>
+            <div class="hero-actions">
+              <a href="#research" class="btn btn-primary">View Research</a>
+              <a href="#contact" class="btn btn-outline">Contact Me</a>
+            </div>
           </div>
-          <div class="hero-actions">
-            <a href="#research" class="btn">View Research</a>
-            <a href="#contact" class="btn btn-ghost">Get in Touch</a>
-          </div>
-        </div>
-        <div class="hero-card" data-reveal>
-          <p class="card-label">Current Focus</p>
-          <h3>Active Matter &amp; Non-Equilibrium Physics</h3>
-          <p class="card-desc">
-            Studying self-propelled particle systems, collective motion, and phase transitions far from equilibrium using LAMMPS and custom simulation frameworks.
-          </p>
-          <div class="card-chips">
-            <span class="chip">LAMMPS</span>
-            <span class="chip">Python</span>
-            <span class="chip">GROMACS</span>
-            <span class="chip">Statistical Mechanics</span>
-          </div>
-          <div class="card-meta">
-            <span>IIT Jodhpur</span>
-            <span>2024 – Present</span>
+          <div class="hero-photo-wrap" data-reveal>
+            <div class="photo-frame">
+              <img src="logo.png" alt="Krishna Kumar Godara" class="hero-photo" />
+            </div>
+            <div class="photo-card">
+              <p class="card-sup">CSIR NET-JRF 2024</p>
+              <p class="card-rank">Rank <strong>46</strong></p>
+              <p class="card-score">Score 106.25 / 200</p>
+            </div>
           </div>
         </div>
       </section>
 
-      <div class="stats-row" data-reveal>
-        <div class="stat-item">
-          <span class="stat-value" data-count="46">0</span>
-          <span class="stat-label">NET-JRF Rank</span>
-        </div>
-        <div class="stat-divider" aria-hidden="true"></div>
-        <div class="stat-item">
-          <span class="stat-value" data-count="2">0</span>
-          <span class="stat-label">Publications</span>
-        </div>
-        <div class="stat-divider" aria-hidden="true"></div>
-        <div class="stat-item">
-          <span class="stat-value" data-count="9">0</span>
-          <span class="stat-label">Certificates</span>
-        </div>
-        <div class="stat-divider" aria-hidden="true"></div>
-        <div class="stat-item">
-          <span class="stat-value" data-count="106.25">0</span>
-          <span class="stat-label">NET Score</span>
+      <!-- Stats -->
+      <div class="stats-bar">
+        <div class="container stats-inner">
+          <div class="stat">
+            <span class="stat-num" data-target="46">0</span>
+            <span class="stat-lbl">NET-JRF Rank</span>
+          </div>
+          <div class="stat-sep"></div>
+          <div class="stat">
+            <span class="stat-num" data-target="106.25" data-decimal="2">0</span>
+            <span class="stat-lbl">NET Score</span>
+          </div>
+          <div class="stat-sep"></div>
+          <div class="stat">
+            <span class="stat-num" data-target="9">0</span>
+            <span class="stat-lbl">Certificates</span>
+          </div>
+          <div class="stat-sep"></div>
+          <div class="stat">
+            <span class="stat-num" data-target="5">0</span>
+            <span class="stat-lbl">Years Research</span>
+          </div>
         </div>
       </div>
 
+      <!-- About -->
       <section class="section" id="about">
-        <div class="section-header" data-reveal>
-          <span class="section-label">01 / About</span>
-          <h2>Background &amp; Expertise</h2>
-        </div>
-        <div class="about-grid" data-reveal>
-          <div class="about-panel">
-            <h3>Education</h3>
-            <div class="timeline">
-              <div class="timeline-item">
-                <span class="timeline-year">2024 – Present</span>
-                <strong>PhD Research Fellow (JRF)</strong>
-                <p>IIT Jodhpur — Computational Physics</p>
-              </div>
-              <div class="timeline-item">
-                <span class="timeline-year">2021 – 2023</span>
-                <strong>MSc Physics</strong>
-                <p>University of Rajasthan, Jaipur</p>
-              </div>
-              <div class="timeline-item">
-                <span class="timeline-year">2018 – 2021</span>
-                <strong>BSc Physics (Hons)</strong>
-                <p>University of Rajasthan, Jaipur</p>
-              </div>
-            </div>
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <p class="section-num">01</p>
+            <h2>About</h2>
+            <p class="section-sub">Background, education and technical expertise.</p>
           </div>
-          <div class="about-panel">
-            <h3>Core Skills</h3>
-            <ul class="skill-list">
-              <li>Molecular Dynamics Simulation (LAMMPS, GROMACS)</li>
-              <li>Statistical Mechanics &amp; Thermodynamics</li>
-              <li>Python · NumPy · Matplotlib · SciPy</li>
-              <li>Data Analysis &amp; Visualization</li>
-              <li>Linux / HPC Cluster Computing</li>
-              <li>LaTeX · Scientific Writing</li>
-            </ul>
-          </div>
-          <div class="about-panel">
-            <h3>Research Interests</h3>
-            <ul class="interest-list">
-              <li>Self-propelled particle systems and collective behavior</li>
-              <li>Jamming transitions and granular criticality</li>
-              <li>Phase transitions in driven systems</li>
-              <li>Network topology in biological systems</li>
-              <li>Computational fluid dynamics</li>
-            </ul>
-          </div>
-        </div>
-      </section>
 
-      <section class="section" id="research">
-        <div class="section-header" data-reveal>
-          <span class="section-label">02 / Research</span>
-          <h2>Research Themes</h2>
-          <p class="section-desc">Exploring the physics of complex, driven systems through simulation and analytical methods.</p>
-        </div>
+          <div class="about-grid" data-reveal>
+            <div class="about-bio">
+              <h3>Profile</h3>
+              <p>An enthusiastic and motivated physicist with a strong passion for research in complex physical systems. Combining computational simulation with analytical methods to study phenomena far from equilibrium — from active biological matter to granular avalanches.</p>
+              <p>Currently pursuing a PhD under the supervision of Dr. Prabhat K. Jaiswal at IIT Jodhpur, with a focus on active matter physics and non-linear dynamics.</p>
 
-        <div class="research-grid" data-reveal>
-          <article class="research-card featured">
-            <div class="research-icon">⚛</div>
-            <h3>Active Matter Physics</h3>
-            <p>Self-propelled particle models (ABP, AOUP) for collective motion, motility-induced phase separation, and flocking transitions in biological and synthetic systems.</p>
-          </article>
-          <article class="research-card">
-            <div class="research-icon">⟳</div>
-            <h3>Non-Equilibrium Systems</h3>
-            <p>Entropy production, fluctuation theorems, and driven-dissipative dynamics in systems far from thermal equilibrium.</p>
-          </article>
-          <article class="research-card">
-            <div class="research-icon">◈</div>
-            <h3>Complex Networks</h3>
-            <p>Graph-theoretic approaches to biological interaction networks, percolation, and topological phase transitions.</p>
-          </article>
-          <article class="research-card">
-            <div class="research-icon">◎</div>
-            <h3>Granular Materials</h3>
-            <p>Avalanche dynamics, jamming criticality, and self-organized criticality in granular sandpile and shear-cell models.</p>
-          </article>
-        </div>
-
-        <div class="lammps-block" data-reveal>
-          <div class="lammps-grid">
-            <div class="code-panel">
-              <div class="panel-head">
-                <div>
-                  <span class="panel-eyebrow">LAMMPS Input Deck</span>
-                  <h3>Active Matter Simulation</h3>
-                  <p class="panel-sub">Terminal-style script for active particle studies.</p>
+              <div class="skills-block">
+                <h4>Technical Skills</h4>
+                <div class="skill-tags">
+                  <span>Python</span><span>MATLAB</span><span>C</span>
+                  <span>LAMMPS</span><span>GROMACS</span><span>NumPy</span>
+                  <span>Matplotlib</span><span>SciPy</span><span>LaTeX</span>
+                  <span>Linux / HPC</span>
                 </div>
-                <button class="btn btn-ghost btn-sm run-btn tooltip" type="button" data-tooltip="Queue LAMMPS job">
-                  Run
-                </button>
-              </div>
-              <pre class="lammps-code" id="research-script"><code><span class="code-line"><span class="token keyword">units</span> lj</span>
-<span class="code-line"><span class="token keyword">dimension</span> 2</span>
-<span class="code-line"><span class="token keyword">atom_style</span> sphere</span>
-<span class="code-line"><span class="token keyword">pair_style</span> gran/hertz/history 1.0 1.0 0.5 0.1 0.0</span>
-<span class="code-line"><span class="token keyword">fix</span> drive all nve/sphere</span>
-<span class="code-line"><span class="token keyword">fix</span> thermostat all langevin 1.0 1.0 1.0 <span class="token number">48279</span></span>
-<span class="code-line"><span class="token keyword">thermo</span> <span class="token number">200</span></span>
-<span class="code-line"><span class="token keyword">dump</span> pile all custom <span class="token number">500</span> dump.sand id type x y vx vy</span></code></pre>
-              <div class="panel-foot">
-                <span class="status-dot" aria-hidden="true"></span>
-                <span>Jodhpur GPU-01 · ETA 00:42:13</span>
               </div>
             </div>
 
-            <div class="params-panel">
-              <div class="panel-head">
-                <span class="panel-eyebrow">Parameter Panel</span>
-                <h3>Runtime Controls</h3>
-              </div>
-              <div class="param-grid">
-                <div class="param-row">
-                  <span class="param-key">timestep</span>
-                  <span class="param-val">0.002</span>
-                </div>
-                <div class="param-row">
-                  <span class="param-key">neighbor</span>
-                  <span class="param-val">0.3 bin</span>
-                </div>
-                <div class="param-row">
-                  <span class="param-key">pair_coeff</span>
-                  <span class="param-val">* * 1.0 0.5</span>
-                </div>
-                <div class="param-row">
-                  <span class="param-key">fix/gravity</span>
-                  <span class="param-val">0.98 z</span>
-                </div>
-              </div>
-              <div class="thermo-block">
-                <p class="thermo-title">log.lammps · thermo output</p>
-                <div class="thermo-table">
-                  <div class="thermo-row header">
-                    <span>Step</span><span>Temp</span><span>Press</span><span>PE</span>
+            <div class="about-right">
+              <div class="edu-card">
+                <h3>Education</h3>
+                <div class="edu-list">
+                  <div class="edu-item">
+                    <div class="edu-dot"></div>
+                    <div>
+                      <p class="edu-year">2024 – Present</p>
+                      <p class="edu-degree">PhD Research Fellow (JRF)</p>
+                      <p class="edu-inst">Indian Institute of Technology Jodhpur</p>
+                      <p class="edu-detail">Supervisor: Dr. Prabhat K. Jaiswal</p>
+                    </div>
                   </div>
-                  <div class="thermo-row">
-                    <span>12000</span><span>0.98</span><span>1.31</span><span>-4.86</span>
-                  </div>
-                  <div class="thermo-row">
-                    <span>12200</span><span>0.97</span><span>1.29</span><span>-4.90</span>
-                  </div>
-                  <div class="thermo-row">
-                    <span>12400</span><span>0.99</span><span>1.34</span><span>-4.82</span>
+                  <div class="edu-item">
+                    <div class="edu-dot"></div>
+                    <div>
+                      <p class="edu-year">2018 – 2023</p>
+                      <p class="edu-degree">Integrated MSc Physics</p>
+                      <p class="edu-inst">Central University of Rajasthan</p>
+                      <p class="edu-detail">CGPA 7.26</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          <div class="directory-panel" data-reveal>
-            <div class="panel-head">
-              <span class="panel-eyebrow">Directory Tree</span>
-              <h3>Simulation Index</h3>
-            </div>
-            <div class="dir-tree">
-              <details open>
-                <summary>/projects/granular/</summary>
-                <ul>
-                  <li><details><summary>jamming/</summary><ul><li>in.jamming</li><li>analysis.ipynb</li><li>figures/</li></ul></details></li>
-                  <li><details><summary>avalanches/</summary><ul><li>in.sandpile</li><li>runlog.dat</li></ul></details></li>
+              <div class="interests-card">
+                <h3>Research Interests</h3>
+                <ul class="interest-list">
+                  <li>Active matter and self-propelled particles</li>
+                  <li>Non-equilibrium phase transitions</li>
+                  <li>Granular materials and jamming</li>
+                  <li>Complex networks in biological systems</li>
+                  <li>Computational fluid dynamics</li>
                 </ul>
-              </details>
-              <details>
-                <summary>/projects/active-matter/</summary>
-                <ul><li>swarm-field.in</li><li>phase-map.json</li></ul>
-              </details>
-              <details>
-                <summary>/projects/complex-networks/</summary>
-                <ul><li>graph-kernels.py</li><li>topology-notes.md</li></ul>
-              </details>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section class="section" id="simulations">
-        <div class="section-header" data-reveal>
-          <span class="section-label">03 / Simulations</span>
-          <h2>Granular Simulations</h2>
-          <p class="section-desc">Lazy-loaded previews of sandpile flow, clustering, and jamming regimes.</p>
-        </div>
+      <!-- Research -->
+      <section class="section section-alt" id="research">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <p class="section-num">02</p>
+            <h2>Research</h2>
+            <p class="section-sub">Current themes and computational work.</p>
+          </div>
 
-        <div class="sim-grid" data-reveal>
-          <article class="sim-card">
-            <div class="sim-preview">
-              <div class="sim-loader">
-                <span>Loading dataset<span class="blink-cursor" aria-hidden="true"></span></span>
-                <div class="loader-bar"><span></span></div>
-              </div>
-              <video class="sim-video" muted playsinline loop preload="none" data-src>
-                <source data-src="https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3b/Avalanche_on_sandpile.ogv/Avalanche_on_sandpile.ogv.360p.webm" type="video/webm" />
-                <source data-src="https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3b/Avalanche_on_sandpile.ogv/Avalanche_on_sandpile.ogv.360p.mp4" type="video/mp4" />
-              </video>
+          <div class="research-cards" data-reveal>
+            <div class="r-card r-card--featured">
+              <div class="r-card-icon">⚛</div>
+              <h3>Active Matter Physics</h3>
+              <p>Self-propelled particle models (ABP, AOUP) — collective motion, motility-induced phase separation, and flocking transitions in biological and synthetic systems.</p>
+              <div class="r-tags"><span>ABP</span><span>MIPS</span><span>Flocking</span></div>
             </div>
-            <h3>Granular Avalanche</h3>
-            <p>Gravity-driven cascades with critical angle detection.</p>
-          </article>
-          <article class="sim-card">
-            <div class="sim-preview">
-              <div class="sim-loader">
-                <span>Loading dataset<span class="blink-cursor" aria-hidden="true"></span></span>
-                <div class="loader-bar"><span></span></div>
-              </div>
-              <video class="sim-video" muted playsinline loop preload="none" data-src>
-                <source data-src="https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7b/Sandpile_avalanching.ogv/Sandpile_avalanching.ogv.360p.webm" type="video/webm" />
-                <source data-src="https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7b/Sandpile_avalanching.ogv/Sandpile_avalanching.ogv.360p.mp4" type="video/mp4" />
-              </video>
+            <div class="r-card">
+              <div class="r-card-icon">⌀</div>
+              <h3>Non-Equilibrium Systems</h3>
+              <p>Entropy production, fluctuation theorems, and driven-dissipative dynamics in systems far from thermal equilibrium.</p>
+              <div class="r-tags"><span>Entropy</span><span>Driven Systems</span></div>
             </div>
-            <h3>Jamming Front</h3>
-            <p>Clustering regimes with localized jam formation.</p>
-          </article>
-          <article class="sim-card">
-            <div class="sim-preview">
-              <div class="sim-loader">
-                <span>Loading dataset<span class="blink-cursor" aria-hidden="true"></span></span>
-                <div class="loader-bar"><span></span></div>
-              </div>
-              <video class="sim-video" muted playsinline loop preload="none" data-src>
-                <source data-src="https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9f/Granular_flow_in_a_rotating_drum.ogv/Granular_flow_in_a_rotating_drum.ogv.360p.webm" type="video/webm" />
-                <source data-src="https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9f/Granular_flow_in_a_rotating_drum.ogv/Granular_flow_in_a_rotating_drum.ogv.360p.mp4" type="video/mp4" />
-              </video>
+            <div class="r-card">
+              <div class="r-card-icon">◈</div>
+              <h3>Complex Networks</h3>
+              <p>Graph-theoretic approaches to biological interaction networks, percolation, and topological phase transitions.</p>
+              <div class="r-tags"><span>Graph Theory</span><span>Percolation</span></div>
             </div>
-            <h3>Rotating Drum Flow</h3>
-            <p>Shear-driven granular mixing and segregation.</p>
-          </article>
-        </div>
-
-        <div class="script-viewer" data-reveal>
-          <div class="viewer-head">
-            <div>
-              <span class="panel-eyebrow">Interactive Script Viewer</span>
-              <h3>in.lammps · shear_cell.in</h3>
-              <p class="panel-sub">Copy-ready input with annotated run stages.</p>
-            </div>
-            <div class="viewer-actions">
-              <button class="btn btn-ghost btn-sm run-btn tooltip" type="button" data-tooltip="Execute shear cell input">Run</button>
-              <button class="btn btn-ghost btn-sm copy-btn tooltip" type="button" data-copy-target="sim-script-code" data-tooltip="Copy input deck">Copy</button>
+            <div class="r-card">
+              <div class="r-card-icon">◎</div>
+              <h3>Granular Materials</h3>
+              <p>Avalanche dynamics, jamming criticality, and self-organized criticality in sandpile and shear-cell models.</p>
+              <div class="r-tags"><span>Jamming</span><span>Criticality</span><span>LAMMPS</span></div>
             </div>
           </div>
-          <pre class="lammps-code code-scroll" id="sim-script-code"><code><span class="code-line" data-line="1"><span class="token keyword">units</span> lj</span>
-<span class="code-line" data-line="2"><span class="token keyword">boundary</span> p p f</span>
-<span class="code-line" data-line="3"><span class="token keyword">read_data</span> <span class="token file">sandpile.data</span></span>
-<span class="code-line" data-line="4"><span class="token keyword">group</span> grains type 1</span>
-<span class="code-line" data-line="5"><span class="token keyword">fix</span> shear grains move linear 0.02 0.0 0.0</span>
-<span class="code-line" data-line="6"><span class="token keyword">compute</span> stress grains stress/atom NULL</span>
-<span class="code-line" data-line="7"><span class="token keyword">thermo_style</span> custom step temp press pe</span>
-<span class="code-line" data-line="8"><span class="token keyword">thermo</span> <span class="token number">100</span></span>
-<span class="code-line" data-line="9"><span class="token keyword">dump</span> flow grains custom <span class="token number">250</span> dump.flow id type x y z c_stress[1]</span>
-<span class="code-line" data-line="10"><span class="token keyword">run</span> <span class="token number">50000</span></span></code></pre>
-          <div class="viewer-annotations">
-            <button class="annotation" type="button" data-line="3">Data ingest: load granular bed.</button>
-            <button class="annotation" type="button" data-line="5">Shear driver: controlled velocity profile.</button>
-            <button class="annotation" type="button" data-line="7">Thermo probe: pressure &amp; potential energy.</button>
-            <button class="annotation" type="button" data-line="9">Dump: per-atom stress for gallery.</button>
+
+          <!-- LAMMPS terminal block -->
+          <div class="terminal-block" data-reveal>
+            <div class="terminal-bar">
+              <span class="t-dot t-red"></span>
+              <span class="t-dot t-yellow"></span>
+              <span class="t-dot t-green"></span>
+              <span class="t-title">in.active_matter.lammps</span>
+              <button class="t-copy btn-micro copy-btn" data-copy-target="lammps-code-main">Copy</button>
+            </div>
+            <pre class="t-code" id="lammps-code-main"><code><span class="ln">1</span>  <span class="kw">units</span>      lj
+<span class="ln">2</span>  <span class="kw">dimension</span>  2
+<span class="ln">3</span>  <span class="kw">atom_style</span> sphere
+<span class="ln">4</span>  <span class="cm"># Active Brownian Particle simulation</span>
+<span class="ln">5</span>  <span class="kw">pair_style</span> gran/hertz/history <span class="nm">1.0</span> <span class="nm">1.0</span> <span class="nm">0.5</span> <span class="nm">0.1</span> <span class="nm">0.0</span>
+<span class="ln">6</span>  <span class="kw">fix</span>        drive all nve/sphere
+<span class="ln">7</span>  <span class="kw">fix</span>        thermostat all langevin <span class="nm">1.0</span> <span class="nm">1.0</span> <span class="nm">1.0</span> <span class="nm">48279</span>
+<span class="ln">8</span>  <span class="kw">thermo</span>     <span class="nm">200</span>
+<span class="ln">9</span>  <span class="kw">dump</span>       pile all custom <span class="nm">500</span> dump.sand id type x y vx vy
+<span class="ln">10</span> <span class="kw">run</span>        <span class="nm">100000</span></code></pre>
+          </div>
+
+          <!-- Simulations -->
+          <div class="sim-section" data-reveal>
+            <h3 class="sim-title">Granular Simulation Previews</h3>
+            <div class="sim-grid">
+              <article class="sim-card">
+                <div class="sim-media">
+                  <div class="sim-loader">
+                    <span class="loader-text">Loading<span class="blink">_</span></span>
+                    <div class="loader-track"><span class="loader-fill"></span></div>
+                  </div>
+                  <video class="sim-video" muted playsinline loop preload="none">
+                    <source data-src="https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3b/Avalanche_on_sandpile.ogv/Avalanche_on_sandpile.ogv.360p.webm" type="video/webm" />
+                    <source data-src="https://upload.wikimedia.org/wikipedia/commons/transcoded/3/3b/Avalanche_on_sandpile.ogv/Avalanche_on_sandpile.ogv.360p.mp4" type="video/mp4" />
+                  </video>
+                </div>
+                <div class="sim-info">
+                  <h4>Granular Avalanche</h4>
+                  <p>Gravity-driven cascades with critical angle detection.</p>
+                </div>
+              </article>
+              <article class="sim-card">
+                <div class="sim-media">
+                  <div class="sim-loader">
+                    <span class="loader-text">Loading<span class="blink">_</span></span>
+                    <div class="loader-track"><span class="loader-fill"></span></div>
+                  </div>
+                  <video class="sim-video" muted playsinline loop preload="none">
+                    <source data-src="https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7b/Sandpile_avalanching.ogv/Sandpile_avalanching.ogv.360p.webm" type="video/webm" />
+                    <source data-src="https://upload.wikimedia.org/wikipedia/commons/transcoded/7/7b/Sandpile_avalanching.ogv/Sandpile_avalanching.ogv.360p.mp4" type="video/mp4" />
+                  </video>
+                </div>
+                <div class="sim-info">
+                  <h4>Jamming Front</h4>
+                  <p>Clustering regimes with localized jam formation.</p>
+                </div>
+              </article>
+              <article class="sim-card">
+                <div class="sim-media">
+                  <div class="sim-loader">
+                    <span class="loader-text">Loading<span class="blink">_</span></span>
+                    <div class="loader-track"><span class="loader-fill"></span></div>
+                  </div>
+                  <video class="sim-video" muted playsinline loop preload="none">
+                    <source data-src="https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9f/Granular_flow_in_a_rotating_drum.ogv/Granular_flow_in_a_rotating_drum.ogv.360p.webm" type="video/webm" />
+                    <source data-src="https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9f/Granular_flow_in_a_rotating_drum.ogv/Granular_flow_in_a_rotating_drum.ogv.360p.mp4" type="video/mp4" />
+                  </video>
+                </div>
+                <div class="sim-info">
+                  <h4>Rotating Drum Flow</h4>
+                  <p>Shear-driven granular mixing and segregation.</p>
+                </div>
+              </article>
+            </div>
           </div>
         </div>
       </section>
 
+      <!-- Awards -->
       <section class="section" id="awards">
-        <div class="section-header" data-reveal>
-          <span class="section-label">04 / Awards</span>
-          <h2>Awards &amp; Achievements</h2>
-          <p class="section-desc">Recognition across national-level competitive examinations.</p>
-        </div>
-        <div class="awards-grid" data-reveal>
-          <div class="award-card featured-award">
-            <span class="award-badge">Rank 46</span>
-            <h3>CSIR NET-JRF 2024</h3>
-            <p>Score 106.25. Qualified for Junior Research Fellowship in Physical Sciences — top 1% nationally.</p>
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <p class="section-num">03</p>
+            <h2>Awards &amp; Achievements</h2>
+            <p class="section-sub">National-level academic recognition.</p>
           </div>
-          <div class="award-card">
-            <h3>National Examinations</h3>
-            <ul class="award-list">
-              <li>GATE 2024 — Physics (IISc Bengaluru)</li>
-              <li>IIT JAM 2021 — Physics</li>
-              <li>CUCET 2018 — Physics</li>
-            </ul>
-          </div>
-        </div>
-      </section>
 
-      <section class="section" id="certificates">
-        <div class="section-header" data-reveal>
-          <span class="section-label">05 / Credentials</span>
-          <h2>Certificates</h2>
-          <p class="section-desc">Verified credentials and specialized courses.</p>
-        </div>
-        <div class="filters" role="tablist" data-reveal>
-          <button class="filter active" data-filter="all" role="tab">All</button>
-          <button class="filter" data-filter="research" role="tab">Research</button>
-          <button class="filter" data-filter="courses" role="tab">Courses</button>
-          <button class="filter" data-filter="design" role="tab">Design</button>
-          <button class="filter" data-filter="software" role="tab">Software</button>
-        </div>
-        <div class="cert-grid" data-reveal id="cert-grid">
-          <article class="cert-card" data-category="research">
-            <span class="cert-tag">Research</span>
-            <h3>CSIR-UGC NET June 2024</h3>
-            <p>JRF + Eligibility for Assistant Professor.</p>
-          </article>
-          <article class="cert-card" data-category="research">
-            <span class="cert-tag">Research</span>
-            <h3>GATE 2024 Physics</h3>
-            <p>IISc Bengaluru certificate.</p>
-          </article>
-          <article class="cert-card" data-category="courses">
-            <span class="cert-tag">Courses</span>
-            <h3>ATMB 2023</h3>
-            <p>Algorithms that Transformed Molecular Biology, IIIT Delhi.</p>
-          </article>
-          <article class="cert-card" data-category="courses">
-            <span class="cert-tag">Courses</span>
-            <h3>AI for Everyone</h3>
-            <p>DeepLearning.AI — Apr 2023.</p>
-          </article>
-          <article class="cert-card" data-category="courses">
-            <span class="cert-tag">Courses</span>
-            <h3>Physics of Biological Systems</h3>
-            <p>NPTEL — May 2023.</p>
-          </article>
-          <article class="cert-card" data-category="courses">
-            <span class="cert-tag">Courses</span>
-            <h3>Biophotonics</h3>
-            <p>NPTEL — May 2023.</p>
-          </article>
-          <article class="cert-card" data-category="design">
-            <span class="cert-tag">Design</span>
-            <h3>UX/UI Design</h3>
-            <p>Selfstudy Space — Mar 2021.</p>
-          </article>
-          <article class="cert-card" data-category="software">
-            <span class="cert-tag">Software</span>
-            <h3>Python for Beginners</h3>
-            <p>Udemy — Aug 2021.</p>
-          </article>
-          <article class="cert-card" data-category="software">
-            <span class="cert-tag">Software</span>
-            <h3>Adobe Photoshop</h3>
-            <p>Udemy — Aug 2021.</p>
-          </article>
-        </div>
-      </section>
+          <div class="awards-layout" data-reveal>
+            <div class="award-hero">
+              <div class="award-glow"></div>
+              <p class="award-label">CSIR NET-JRF 2024 · Physical Sciences</p>
+              <div class="award-rank">
+                <span class="rank-num">46</span>
+                <span class="rank-sup">ALL INDIA RANK</span>
+              </div>
+              <p class="award-score">Score <strong>106.25</strong> / 200</p>
+              <p class="award-desc">Qualified for Junior Research Fellowship — top 1% nationally in Physical Sciences. Eligible for Assistant Professor position.</p>
+            </div>
 
-      <section class="section" id="publications">
-        <div class="section-header" data-reveal>
-          <span class="section-label">06 / Publications</span>
-          <h2>Publications &amp; Presentations</h2>
-          <p class="section-desc">Research communication and scholarly outputs.</p>
-        </div>
-        <div class="pub-list" data-reveal>
-          <article class="pub-item">
-            <span class="pub-type">Presentation</span>
-            <h3>Phase-slip of pentanol drops oscillation</h3>
-            <p>Study of oscillatory dynamics and phase-slip phenomena in pentanol droplet systems under controlled flow conditions.</p>
-            <a class="text-link" href="https://docs.google.com/presentation/d/e/2PACX-1vSWCkHDRrHb7oMHLwE0sEmsIQw3U0gW8MAGr17y0LIHKaHVOzdLeQ7fDbF2hbRg-ooq1ygtSO1n6Cho/pub?start=true&loop=true&delayms=3000" target="_blank" rel="noopener noreferrer">View Presentation →</a>
-          </article>
-          <article class="pub-item">
-            <span class="pub-type">Report</span>
-            <h3>Phase-slip in pentanol drops in parallel connected channels</h3>
-            <p>Major project report investigating microfluidic phase-slip mechanisms in multi-channel pentanol droplet systems.</p>
-            <a class="text-link" href="https://drive.google.com/file/d/1joWNvej2eY17bNdszvUv64bw8ivXad08/view?usp=sharing" target="_blank" rel="noopener noreferrer">Open Report →</a>
-          </article>
-        </div>
-      </section>
-
-      <section class="section contact" id="contact">
-        <div class="section-header" data-reveal>
-          <span class="section-label">07 / Contact</span>
-          <h2>Get in Touch</h2>
-          <p class="section-desc">Let us collaborate on active matter, simulations, or computational physics.</p>
-        </div>
-        <div class="contact-grid" data-reveal>
-          <div class="contact-info">
-            <h3>Location &amp; Contact</h3>
-            <p class="contact-detail">
-              <span class="detail-label">Address</span>
-              319, Department of Physics, IIT Jodhpur, PIN-342037
-            </p>
-            <p class="contact-detail">
-              <span class="detail-label">Email</span>
-              <a href="mailto:kkgodara2000@gmail.com">kkgodara2000@gmail.com</a>
-            </p>
-            <p class="contact-detail">
-              <span class="detail-label">Phone</span>
-              <a href="tel:+917300211371">+91 7300 211 371</a>
-            </p>
-            <div class="social-row">
-              <a href="https://www.linkedin.com/in/kkgodara2000/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0.5 8.5h4V23h-4V8.5zM8 8.5h3.8v2h0.1c0.5-1 1.8-2.1 3.8-2.1 4.1 0 4.9 2.7 4.9 6.2V23h-4v-7.3c0-1.7 0-3.9-2.4-3.9s-2.8 1.9-2.8 3.8V23H8V8.5z"/></svg>
-                LinkedIn
-              </a>
-              <a href="https://www.instagram.com/kk_godara_/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2.5h10A4.5 4.5 0 0 1 21.5 7v10A4.5 4.5 0 0 1 17 21.5H7A4.5 4.5 0 0 1 2.5 17V7A4.5 4.5 0 0 1 7 2.5zm0 2A2.5 2.5 0 0 0 4.5 7v10A2.5 2.5 0 0 0 7 19.5h10a2.5 2.5 0 0 0 2.5-2.5V7A2.5 2.5 0 0 0 17 4.5H7zm5 3.5a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.25-2.75a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5z"/></svg>
-                Instagram
-              </a>
-              <a href="https://sites.google.com/view/kkgodara" target="_blank" rel="noopener noreferrer">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                Google Site
-              </a>
+            <div class="awards-other">
+              <h3>Other Examinations</h3>
+              <div class="exam-list">
+                <div class="exam-item">
+                  <div class="exam-icon">◆</div>
+                  <div>
+                    <p class="exam-name">GATE 2024 — Physics</p>
+                    <p class="exam-org">IISc Bengaluru</p>
+                  </div>
+                </div>
+                <div class="exam-item">
+                  <div class="exam-icon">◆</div>
+                  <div>
+                    <p class="exam-name">IIT JAM 2021 — Physics</p>
+                    <p class="exam-org">Joint Admission Test for M.Sc.</p>
+                  </div>
+                </div>
+                <div class="exam-item">
+                  <div class="exam-icon">◆</div>
+                  <div>
+                    <p class="exam-name">CUCET 2018 — Physics</p>
+                    <p class="exam-org">Central University Common Entrance Test</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="contact-cta">
-            <h3>Send a Message</h3>
-            <p>Prefer a quick conversation? Reach out on WhatsApp and I will reply as soon as possible.</p>
-            <a class="btn" href="https://wa.me/917300211371" target="_blank" rel="noopener noreferrer">Message on WhatsApp</a>
-            <a class="btn btn-ghost" href="mailto:kkgodara2000@gmail.com">Send Email</a>
+        </div>
+      </section>
+
+      <!-- Certificates -->
+      <section class="section section-alt" id="certificates">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <p class="section-num">04</p>
+            <h2>Certificates</h2>
+            <p class="section-sub">Verified credentials and specialized training.</p>
+          </div>
+
+          <div class="cert-filters" data-reveal role="tablist">
+            <button class="cf active" data-filter="all">All</button>
+            <button class="cf" data-filter="research">Research</button>
+            <button class="cf" data-filter="courses">Courses</button>
+            <button class="cf" data-filter="design">Design</button>
+            <button class="cf" data-filter="software">Software</button>
+          </div>
+
+          <div class="cert-grid" data-reveal id="cert-grid">
+            <article class="cert-card" data-cat="research">
+              <span class="cert-cat">Research</span>
+              <h4>CSIR-UGC NET June 2024</h4>
+              <p>JRF + Eligibility for Assistant Professor · India</p>
+            </article>
+            <article class="cert-card" data-cat="research">
+              <span class="cert-cat">Research</span>
+              <h4>GATE 2024 Physics</h4>
+              <p>IISc Bengaluru · 2024</p>
+            </article>
+            <article class="cert-card" data-cat="courses">
+              <span class="cert-cat">Course</span>
+              <h4>Algorithms in Molecular Biology</h4>
+              <p>IIIT Delhi · March 2023</p>
+            </article>
+            <article class="cert-card" data-cat="courses">
+              <span class="cert-cat">Course</span>
+              <h4>AI for Everyone</h4>
+              <p>DeepLearning.AI · April 2023</p>
+            </article>
+            <article class="cert-card" data-cat="courses">
+              <span class="cert-cat">Course</span>
+              <h4>Physics of Biological Systems</h4>
+              <p>NPTEL · May 2023</p>
+            </article>
+            <article class="cert-card" data-cat="courses">
+              <span class="cert-cat">Course</span>
+              <h4>Biophotonics</h4>
+              <p>NPTEL · May 2023</p>
+            </article>
+            <article class="cert-card" data-cat="design">
+              <span class="cert-cat">Design</span>
+              <h4>UX / UI Design</h4>
+              <p>Selfstudy Space · March 2021</p>
+            </article>
+            <article class="cert-card" data-cat="software">
+              <span class="cert-cat">Software</span>
+              <h4>Python for Beginners</h4>
+              <p>Udemy · August 2021</p>
+            </article>
+            <article class="cert-card" data-cat="software">
+              <span class="cert-cat">Software</span>
+              <h4>Adobe Photoshop</h4>
+              <p>Udemy · August 2021</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Publications -->
+      <section class="section" id="publications">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <p class="section-num">05</p>
+            <h2>Publications &amp; Presentations</h2>
+            <p class="section-sub">Research communication and scholarly outputs.</p>
+          </div>
+
+          <div class="pub-list" data-reveal>
+            <article class="pub-card">
+              <div class="pub-meta">
+                <span class="pub-type">Presentation</span>
+                <span class="pub-year">2023</span>
+              </div>
+              <h3>Phase-slip of pentanol drops oscillation in parallel connected channels</h3>
+              <p>Masters project presentation. Investigation of oscillatory dynamics and phase-slip phenomena in pentanol droplet systems under controlled microfluidic flow conditions.</p>
+              <a href="https://docs.google.com/presentation/d/e/2PACX-1vSWCkHDRrHb7oMHLwE0sEmsIQw3U0gW8MAGr17y0LIHKaHVOzdLeQ7fDbF2hbRg-ooq1ygtSO1n6Cho/pub?start=true&loop=true&delayms=3000" target="_blank" rel="noopener noreferrer" class="pub-link">View Slides ↗</a>
+            </article>
+
+            <article class="pub-card">
+              <div class="pub-meta">
+                <span class="pub-type">Report</span>
+                <span class="pub-year">2023</span>
+              </div>
+              <h3>Phase-slip in pentanol drops in parallel connected channels</h3>
+              <p>Masters major project report. Complete documentation of microfluidic phase-slip mechanisms in multi-channel pentanol droplet systems, covering experimental setup, simulation, and analysis.</p>
+              <a href="https://drive.google.com/file/d/1joWNvej2eY17bNdszvUv64bw8ivXad08/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="pub-link">Open Report ↗</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="section section-alt" id="contact">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <p class="section-num">06</p>
+            <h2>Contact</h2>
+            <p class="section-sub">Open for collaboration in computational physics and simulation.</p>
+          </div>
+
+          <div class="contact-layout" data-reveal>
+            <div class="contact-left">
+              <p class="contact-intro">
+                I am always happy to discuss research ideas, potential collaborations, or opportunities in computational physics. Feel free to reach out.
+              </p>
+
+              <div class="contact-items">
+                <div class="contact-row">
+                  <span class="c-label">Institution</span>
+                  <span class="c-val">Department of Physics, IIT Jodhpur, PIN-342037</span>
+                </div>
+                <div class="contact-row">
+                  <span class="c-label">Email</span>
+                  <a href="mailto:kkgodara2000@gmail.com" class="c-link">kkgodara2000@gmail.com</a>
+                </div>
+                <div class="contact-row">
+                  <span class="c-label">Phone</span>
+                  <a href="tel:+917300211371" class="c-link">+91 7300 211 371</a>
+                </div>
+              </div>
+
+              <div class="social-links">
+                <a href="https://www.linkedin.com/in/kkgodara2000/" target="_blank" rel="noopener noreferrer" class="soc-btn">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0.5 8.5h4V23h-4V8.5zM8 8.5h3.8v2h0.1c.5-1 1.8-2.1 3.8-2.1 4.1 0 4.9 2.7 4.9 6.2V23h-4v-7.3c0-1.7 0-3.9-2.4-3.9s-2.8 1.9-2.8 3.8V23H8V8.5z"/></svg>
+                  LinkedIn
+                </a>
+                <a href="https://www.instagram.com/kk_godara_/" target="_blank" rel="noopener noreferrer" class="soc-btn">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2.5h10A4.5 4.5 0 0 1 21.5 7v10A4.5 4.5 0 0 1 17 21.5H7A4.5 4.5 0 0 1 2.5 17V7A4.5 4.5 0 0 1 7 2.5zm0 2A2.5 2.5 0 0 0 4.5 7v10A2.5 2.5 0 0 0 7 19.5h10a2.5 2.5 0 0 0 2.5-2.5V7A2.5 2.5 0 0 0 17 4.5H7zm5 3.5a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.25-2.75a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5z"/></svg>
+                  Instagram
+                </a>
+                <a href="https://sites.google.com/view/kkgodara" target="_blank" rel="noopener noreferrer" class="soc-btn">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                  Google Site
+                </a>
+              </div>
+            </div>
+
+            <div class="contact-right">
+              <div class="whatsapp-card">
+                <p class="wa-label">Quick Message</p>
+                <h3>Prefer WhatsApp?</h3>
+                <p>Send a quick note and I will reply as soon as possible.</p>
+                <a href="https://wa.me/917300211371" target="_blank" rel="noopener noreferrer" class="btn btn-primary wa-btn">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                  Message on WhatsApp
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
     </main>
 
     <footer class="footer">
-      <p>© 2026 Krishna Kumar Godara — IIT Jodhpur</p>
-      <a href="#top" class="back-top">Back to top ↑</a>
+      <div class="container footer-inner">
+        <p>© 2026 Krishna Kumar Godara &nbsp;·&nbsp; IIT Jodhpur</p>
+        <a href="#top" class="footer-top">↑ Top</a>
+      </div>
     </footer>
 
-    <div class="toast-stack" aria-live="polite" aria-atomic="true"></div>
-
-    <div class="cli-overlay" aria-hidden="true">
-      <div class="cli-panel" role="dialog" aria-modal="true" aria-label="CLI console">
-        <div class="cli-head">
-          <div>
-            <span class="panel-eyebrow">Terminal</span>
-            <h3>Cluster CLI</h3>
-            <p class="panel-sub">Type <code>help</code> for available commands.</p>
-          </div>
-          <button class="btn btn-ghost btn-sm cli-close" type="button">Close</button>
-        </div>
-        <div class="cli-log" aria-live="polite"></div>
-        <form class="cli-form" autocomplete="off">
-          <span class="cli-prompt">kkgodara@cluster:~$</span>
-          <input class="cli-input" type="text" name="cli" placeholder="Enter command" />
-          <span class="cli-cursor" aria-hidden="true"></span>
-        </form>
-      </div>
-    </div>
-
-    <button class="cli-toggle btn btn-ghost btn-sm" type="button" aria-label="Open terminal">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zM6 10l1.41-1.41L10 11.17l-2.59 2.58L6 12.34 8.76 9.59 6 8.34V10zm4 4h6v-2h-6v2z"/></svg>
-      CLI
-    </button>
+    <!-- Toasts -->
+    <div class="toast-stack" aria-live="polite"></div>
 
     <script src="script.js"></script>
   </body>

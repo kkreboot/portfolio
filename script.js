@@ -1,321 +1,220 @@
-const canvas = document.getElementById("field");
-const ctx = canvas.getContext("2d");
+"use strict";
 
-const state = {
-  width: window.innerWidth,
-  height: window.innerHeight,
-  particles: [],
-};
+/* ── Particle background ─────────────────────────── */
+(function () {
+  const canvas = document.getElementById("bg-canvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  const dpr = window.devicePixelRatio || 1;
+  let W, H, particles = [];
+  const MAX = 55;
 
-function resize() {
-  state.width = window.innerWidth;
-  state.height = window.innerHeight;
-  canvas.width = state.width * devicePixelRatio;
-  canvas.height = state.height * devicePixelRatio;
-  ctx.setTransform(1, 0, 0, 1, 0, 0);
-  ctx.scale(devicePixelRatio, devicePixelRatio);
-}
-
-function spawnParticle() {
-  if (state.particles.length >= 60) return;
-  state.particles.push({
-    x: Math.random() * state.width,
-    y: Math.random() * state.height,
-    vx: (Math.random() - 0.5) * 0.15,
-    vy: (Math.random() - 0.5) * 0.15,
-    r: 0.8 + Math.random() * 1.2,
-    opacity: 0.1 + Math.random() * 0.3,
-  });
-}
-
-function draw() {
-  ctx.clearRect(0, 0, state.width, state.height);
-
-  spawnParticle();
-
-  state.particles.forEach((p) => {
-    p.x += p.vx;
-    p.y += p.vy;
-
-    if (p.x < 0 || p.x > state.width) p.vx *= -1;
-    if (p.y < 0 || p.y > state.height) p.vy *= -1;
-
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(212, 168, 83, ${p.opacity})`;
-    ctx.fill();
-  });
-
-  for (let i = 0; i < state.particles.length; i++) {
-    for (let j = i + 1; j < state.particles.length; j++) {
-      const a = state.particles[i];
-      const b = state.particles[j];
-      const dx = a.x - b.x;
-      const dy = a.y - b.y;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < 120) {
-        ctx.strokeStyle = `rgba(212, 168, 83, ${(1 - dist / 120) * 0.06})`;
-        ctx.lineWidth = 0.5;
-        ctx.beginPath();
-        ctx.moveTo(a.x, a.y);
-        ctx.lineTo(b.x, b.y);
-        ctx.stroke();
-      }
-    }
+  function resize() {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
-  requestAnimationFrame(draw);
-}
+  function mkParticle() {
+    return {
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - .5) * .12,
+      vy: (Math.random() - .5) * .12,
+      r: .6 + Math.random() * 1.2,
+      a: .08 + Math.random() * .2,
+    };
+  }
 
+  function seed() {
+    particles = [];
+    for (let i = 0; i < MAX; i++) particles.push(mkParticle());
+  }
+
+  function tick() {
+    ctx.clearRect(0, 0, W, H);
+
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > W) p.vx *= -1;
+      if (p.y < 0 || p.y > H) p.vy *= -1;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(129,140,248,${p.a})`;
+      ctx.fill();
+    });
+
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const a = particles[i], b = particles[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const d = Math.sqrt(dx * dx + dy * dy);
+        if (d < 130) {
+          ctx.strokeStyle = `rgba(129,140,248,${(1 - d / 130) * .055})`;
+          ctx.lineWidth = .5;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  resize();
+  seed();
+  tick();
+  window.addEventListener("resize", () => { resize(); seed(); });
+})();
+
+/* ── Stat counters ───────────────────────────────── */
 function initCounters() {
-  document.querySelectorAll(".stat-item").forEach((item) => {
-    const valEl = item.querySelector(".stat-value");
-    if (!valEl) return;
-    const target = parseFloat(valEl.dataset.count || "0");
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseFloat(el.dataset.target || "0");
+      const dec = parseInt(el.dataset.decimal || "0");
+      let cur = 0;
+      const step = target / 60;
+      const tick = () => {
+        cur = Math.min(cur + step, target);
+        el.textContent = dec ? cur.toFixed(dec) : Math.floor(cur);
+        if (cur < target) requestAnimationFrame(tick);
+        else el.textContent = dec ? target.toFixed(dec) : String(target);
+      };
+      tick();
+      io.unobserve(el);
+    });
+  }, { threshold: .4 });
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        let current = 0;
-        const step = target / 60;
-        const tick = () => {
-          current += step;
-          if (current >= target) {
-            valEl.textContent = target % 1 === 0 ? target.toString() : target.toFixed(2);
-            observer.disconnect();
-            return;
-          }
-          valEl.textContent = target % 1 === 0 ? Math.floor(current) : current.toFixed(2);
-          requestAnimationFrame(tick);
-        };
-        tick();
-      });
-    }, { threshold: 0.4 });
-
-    observer.observe(item);
-  });
+  document.querySelectorAll(".stat-num[data-target]").forEach(el => io.observe(el));
 }
 
+/* ── Certificate filters ─────────────────────────── */
 function initFilters() {
-  const buttons = document.querySelectorAll(".filter");
+  const btns = document.querySelectorAll(".cf");
   const cards = document.querySelectorAll("#cert-grid .cert-card");
 
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      buttons.forEach((btn) => btn.classList.remove("active"));
-      button.classList.add("active");
-      const filter = button.dataset.filter;
-      cards.forEach((card) => {
-        const match = filter === "all" || filter === card.dataset.category;
-        card.classList.toggle("hide", !match);
-      });
+  btns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      btns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      const f = btn.dataset.filter;
+      cards.forEach(c => c.classList.toggle("hide", f !== "all" && c.dataset.cat !== f));
     });
   });
 }
 
+/* ── Scroll reveal ───────────────────────────────── */
 function initReveal() {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add("visible");
-      });
-    },
-    { threshold: 0.15 }
-  );
-  document.querySelectorAll("[data-reveal]").forEach((el) => observer.observe(el));
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add("visible"); });
+  }, { threshold: .12 });
+  document.querySelectorAll("[data-reveal]").forEach(el => io.observe(el));
 }
 
-function initSmoothScroll() {
-  document.querySelectorAll("a[href^='#']").forEach((anchor) => {
-    anchor.addEventListener("click", (e) => {
-      const href = anchor.getAttribute("href");
+/* ── Smooth scroll ───────────────────────────────── */
+function initScroll() {
+  document.querySelectorAll("a[href^='#']").forEach(a => {
+    a.addEventListener("click", e => {
+      const href = a.getAttribute("href");
       if (!href || href === "#") return;
       e.preventDefault();
-      const target = document.querySelector(href);
-      if (target) target.scrollIntoView({ behavior: "smooth" });
+      document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
     });
   });
 }
 
-function initScriptViewer() {
-  document.querySelectorAll(".copy-btn").forEach((button) => {
-    button.addEventListener("click", async () => {
-      const id = button.dataset.copyTarget;
-      if (!id) return;
-      const block = document.getElementById(id);
+/* ── Copy buttons ────────────────────────────────── */
+function initCopy() {
+  document.querySelectorAll(".copy-btn").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const id = btn.dataset.copyTarget;
+      const block = id && document.getElementById(id);
       if (!block) return;
-      const text = block.innerText.trim();
-      try {
-        await navigator.clipboard.writeText(text);
-      } catch {
-        const ta = document.createElement("textarea");
-        ta.value = text;
-        ta.style.cssText = "position:absolute;left:-9999px";
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand("copy");
-        document.body.removeChild(ta);
+      const text = block.innerText.replace(/^\d+\s/gm, "").trim(); // strip line numbers
+      try { await navigator.clipboard.writeText(text); }
+      catch {
+        const ta = Object.assign(document.createElement("textarea"), {
+          value: text, style: "position:fixed;opacity:0"
+        });
+        document.body.append(ta);
+        ta.select(); document.execCommand("copy"); ta.remove();
       }
-      const orig = button.textContent;
-      button.textContent = "Copied";
-      setTimeout(() => (button.textContent = orig), 1600);
-    });
-  });
-
-  document.querySelectorAll(".annotation").forEach((ann) => {
-    ann.addEventListener("click", () => {
-      const line = ann.dataset.line;
-      const viewer = ann.closest(".script-viewer");
-      if (!viewer || !line) return;
-      viewer.querySelectorAll(".code-line").forEach((el) => el.classList.remove("is-highlight"));
-      viewer.querySelectorAll(".annotation").forEach((el) => el.classList.remove("active"));
-      const lineEl = viewer.querySelector(`.code-line[data-line='${line}']`);
-      if (lineEl) {
-        lineEl.classList.add("is-highlight");
-        lineEl.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-      ann.classList.add("active");
+      const orig = btn.textContent;
+      btn.textContent = "Copied!";
+      setTimeout(() => btn.textContent = orig, 1800);
     });
   });
 }
 
-function showToast(message, level = "INFO") {
-  const stack = document.querySelector(".toast-stack");
-  if (!stack) return;
-  const toast = document.createElement("div");
-  toast.className = "toast";
-  toast.innerHTML = `<span class="toast-level">[${level}]</span>${message}`;
-  stack.appendChild(toast);
-  setTimeout(() => toast.remove(), 4000);
-}
-
-function initCliOverlay() {
-  const overlay = document.querySelector(".cli-overlay");
-  const toggle = document.querySelector(".cli-toggle");
-  const closeBtn = document.querySelector(".cli-close");
-  const form = document.querySelector(".cli-form");
-  const input = document.querySelector(".cli-input");
-  const log = document.querySelector(".cli-log");
-
-  if (!overlay || !toggle || !closeBtn || !form || !input || !log) return;
-
-  const open = () => {
-    overlay.classList.add("is-open");
-    overlay.setAttribute("aria-hidden", "false");
-    input.focus();
-  };
-
-  const close = () => {
-    overlay.classList.remove("is-open");
-    overlay.setAttribute("aria-hidden", "true");
-  };
-
-  toggle.addEventListener("click", open);
-  closeBtn.addEventListener("click", close);
-  overlay.addEventListener("click", (e) => { if (e.target === overlay) close(); });
-
-  const commands = {
-    help: "Commands: help, about, research, simulations, publications, awards, contact, clear.",
-    about: "#about",
-    research: "#research",
-    simulations: "#simulations",
-    publications: "#publications",
-    awards: "#awards",
-    contact: "#contact",
-  };
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const raw = input.value.trim();
-    if (!raw) return;
-    const cmd = raw.toLowerCase();
-
-    const line = document.createElement("span");
-    line.className = "log-line";
-    line.textContent = `kkgodara@cluster:~$ ${raw}`;
-    log.appendChild(line);
-
-    if (cmd === "clear") {
-      log.innerHTML = "";
-      input.value = "";
-      return;
-    }
-
-    const resp = document.createElement("span");
-    resp.className = "log-line log-response";
-
-    if (commands[cmd]) {
-      if (commands[cmd].startsWith("#")) {
-        const target = document.querySelector(commands[cmd]);
-        if (target) {
-          target.scrollIntoView({ behavior: "smooth" });
-          resp.textContent = `→ navigating to /${cmd}`;
-          showToast(`Navigated to ${cmd}.`, "INFO");
-        } else {
-          resp.textContent = "Section unavailable.";
-        }
-      } else {
-        resp.textContent = commands[cmd];
-      }
-    } else {
-      resp.textContent = `Unknown command: ${cmd}. Type 'help'.`;
-      showToast(`Unknown command: ${cmd}.`, "WARN");
-    }
-
-    log.appendChild(resp);
-    log.scrollTop = log.scrollHeight;
-    input.value = "";
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "`" && !overlay.classList.contains("is-open")) open();
-    else if (e.key === "Escape" && overlay.classList.contains("is-open")) close();
-  });
-}
-
-function initSimPreviews() {
-  const videos = document.querySelectorAll(".sim-video");
-  if (!videos.length) return;
-
-  const observer = new IntersectionObserver((entries, obs) => {
-    entries.forEach((entry) => {
+/* ── Lazy simulation videos ──────────────────────── */
+function initSimVideos() {
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       const video = entry.target;
       const card = video.closest(".sim-card");
-
-      video.querySelectorAll("source[data-src]").forEach((s) => {
-        s.src = s.dataset.src || "";
+      video.querySelectorAll("source[data-src]").forEach(s => {
+        s.src = s.dataset.src;
         s.removeAttribute("data-src");
       });
-
-      if (video.dataset.src) {
-        video.src = video.dataset.src;
-        video.removeAttribute("data-src");
-      }
-
       video.load();
       video.play().catch(() => {});
-
-      video.addEventListener("loadeddata", () => {
-        if (card) card.classList.add("is-loaded");
-        showToast("Simulation loaded.", "INFO");
-      }, { once: true });
-
+      video.addEventListener("loadeddata", () => card?.classList.add("loaded"), { once: true });
       obs.unobserve(video);
     });
-  }, { threshold: 0.2 });
+  }, { threshold: .2 });
 
-  videos.forEach((v) => observer.observe(v));
+  document.querySelectorAll(".sim-video").forEach(v => io.observe(v));
 }
 
-resize();
-initCounters();
-initFilters();
-initReveal();
-initSmoothScroll();
-initScriptViewer();
-initCliOverlay();
-initSimPreviews();
-requestAnimationFrame(draw);
+/* ── Active nav highlight on scroll ─────────────── */
+function initActiveNav() {
+  const sections = document.querySelectorAll("section[id]");
+  const links = document.querySelectorAll(".nav-links a");
+  if (!links.length) return;
 
-window.addEventListener("resize", resize);
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      links.forEach(l => l.classList.remove("active-nav"));
+      const match = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+      if (match) match.classList.add("active-nav");
+    });
+  }, { rootMargin: "-40% 0px -55% 0px" });
+
+  sections.forEach(s => io.observe(s));
+}
+
+/* ── Toast helper ────────────────────────────────── */
+function toast(msg) {
+  const stack = document.querySelector(".toast-stack");
+  if (!stack) return;
+  const t = document.createElement("div");
+  t.className = "toast";
+  t.textContent = msg;
+  stack.append(t);
+  setTimeout(() => t.remove(), 3600);
+}
+
+/* ── Init ────────────────────────────────────────── */
+document.addEventListener("DOMContentLoaded", () => {
+  initCounters();
+  initFilters();
+  initReveal();
+  initScroll();
+  initCopy();
+  initSimVideos();
+  initActiveNav();
+});
+
+/* Active nav style */
+const style = document.createElement("style");
+style.textContent = ".nav-links a.active-nav { color: #eaedf5; }";
+document.head.append(style);
