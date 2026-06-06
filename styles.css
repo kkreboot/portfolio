@@ -1186,10 +1186,10 @@ h4 { font-size: 1rem; font-weight: 600; }
   border-color: var(--accent-border);
   background: var(--accent-dim);
 }
-.theme-toggle .icon-sun { display: none; }
-.theme-toggle .icon-moon { display: block; }
-html.light .theme-toggle .icon-sun { display: block; }
-html.light .theme-toggle .icon-moon { display: none; }
+.theme-toggle .icon-sun { display: block; }
+.theme-toggle .icon-moon { display: none; }
+html.light .theme-toggle .icon-sun { display: none; }
+html.light .theme-toggle .icon-moon { display: block; }
 
 .hamburger {
   display: none;
@@ -1267,85 +1267,157 @@ html.light .theme-toggle .icon-moon { display: none; }
 }
 
 /* ─────────────────────────────────────────────────────────
-   Conferences & Workshops
+   Conferences & Workshops — Timeline
    ───────────────────────────────────────────────────────── */
-.conf-grid {
+.conf-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-width: 780px;
+}
+
+.conf-event {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 22px;
+  grid-template-columns: 28px 1fr;
+  gap: 0 28px;
+}
+
+.conf-marker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 22px;
+}
+
+.conf-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--surface-3);
+  border: 2px solid var(--border-2);
+  flex-shrink: 0;
+  transition: border-color .2s, background .2s;
+}
+.conf-event--featured .conf-dot {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 10px rgba(129,140,248,.45);
+}
+
+.conf-line {
+  width: 2px;
+  flex: 1;
+  background: var(--border);
+  margin-top: 6px;
+  margin-bottom: 0;
+  min-height: 28px;
 }
 
 .conf-card {
-  display: flex;
-  gap: 22px;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--r-xl);
-  padding: 28px 30px;
-  transition: border-color .25s, transform .25s, box-shadow .25s;
+  padding: 24px 28px;
+  margin-bottom: 20px;
+  display: grid;
+  gap: 12px;
+  transition: border-color .25s, box-shadow .25s, transform .25s;
 }
 .conf-card:hover {
   border-color: var(--accent-border);
-  transform: translateY(-3px);
   box-shadow: var(--shadow);
+  transform: translateX(4px);
 }
-.conf-card--featured { border-color: var(--accent-border); }
-
-.conf-year {
-  font-family: var(--f-mono);
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--accent);
-  opacity: .4;
-  flex-shrink: 0;
-  line-height: 1;
-  padding-top: 4px;
+.conf-event--featured .conf-card {
+  border-color: var(--accent-border);
+  background: linear-gradient(135deg, var(--surface) 0%, rgba(129,140,248,.04) 100%);
 }
-.conf-card--featured .conf-year { opacity: .9; }
 
-.conf-body { display: grid; gap: 8px; }
+.conf-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.conf-badges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
 
 .conf-type {
-  font-size: .65rem;
+  font-size: .62rem;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   color: var(--accent);
-  font-weight: 600;
+  font-weight: 700;
   border: 1px solid var(--accent-border);
+  background: var(--accent-dim);
   padding: 2px 9px;
   border-radius: 999px;
-  display: inline-block;
-  width: fit-content;
 }
 
-.conf-card h3 { font-size: 1.1rem; color: var(--txt); }
+.conf-role {
+  font-size: .62rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--txt-3);
+  font-weight: 600;
+  border: 1px solid var(--border-2);
+  padding: 2px 9px;
+  border-radius: 999px;
+}
 
-.conf-venue {
+.conf-date {
+  font-family: var(--f-mono);
+  font-size: .75rem;
+  color: var(--txt-3);
+  white-space: nowrap;
+}
+
+.conf-card h3 {
+  font-size: 1.25rem;
+  color: var(--txt);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.conf-full-name {
   font-size: .88rem;
+  color: var(--accent-light);
   font-weight: 500;
-  color: var(--txt-2);
+  line-height: 1.4;
+}
+
+.conf-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
 }
 
 .conf-loc {
+  display: flex;
+  align-items: center;
+  gap: 5px;
   font-size: .8rem;
   color: var(--txt-3);
-  font-family: var(--f-mono);
 }
+.conf-loc svg { flex-shrink: 0; }
 
 .conf-detail {
-  font-size: .85rem;
+  font-size: .875rem;
   color: var(--txt-2);
-  line-height: 1.65;
+  line-height: 1.7;
 }
 
 .conf-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-top: 4px;
 }
 .conf-tags span {
-  font-size: .65rem;
+  font-size: .62rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -1537,7 +1609,8 @@ html.light .btn-primary { color: #fff; }
 
   .footer-inner { flex-direction: column; gap: 8px; }
 
-  .conf-grid { grid-template-columns: 1fr; }
+  .conf-event { grid-template-columns: 20px 1fr; gap: 0 16px; }
+  .conf-card { padding: 20px; }
 }
 
 @media (max-width: 420px) {
