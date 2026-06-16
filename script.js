@@ -223,8 +223,45 @@ function initThemeToggle() {
   if (stored !== "dark") document.documentElement.classList.add("light");
 
   btn.addEventListener("click", () => {
-    const isLight = document.documentElement.classList.toggle("light");
+    const html = document.documentElement;
+    html.classList.add("theme-transitioning");
+    const isLight = html.classList.toggle("light");
     localStorage.setItem("theme", isLight ? "light" : "dark");
+    setTimeout(() => html.classList.remove("theme-transitioning"), 400);
+  });
+}
+
+/* ── Contact form ────────────────────────────────── */
+function initContactForm() {
+  const form = document.getElementById("contact-form");
+  const successEl = document.getElementById("form-success");
+  if (!form || !successEl) return;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const btn = form.querySelector(".cf-submit");
+    const origHTML = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="animation:spin .7s linear infinite"><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0"/></svg> Sending…`;
+
+    try {
+      const res = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      });
+      if (res.ok) {
+        form.style.display = "none";
+        successEl.style.display = "flex";
+        toast("✓ Message sent!");
+      } else {
+        throw new Error("server error");
+      }
+    } catch {
+      toast("Couldn't send — please email directly.");
+      btn.disabled = false;
+      btn.innerHTML = origHTML;
+    }
   });
 }
 
@@ -244,4 +281,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initBackToTop();
   initHamburger();
   initThemeToggle();
+  initContactForm();
 });
