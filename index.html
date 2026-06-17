@@ -654,44 +654,19 @@
               </div>
             </div>
 
-            <!-- ── Right: redesigned form ── -->
+            <!-- ── Right: email CTA ── -->
             <div class="contact-right">
-              <!-- Contact Form — powered by Formspree (free tier).
-                   Sign up at https://formspree.io, create a form, then
-                   replace YOUR_FORM_ID in the action URL below. -->
-              <div class="contact-form-card">
-                <div class="cf-card-head">
-                  <h3>Send a Message</h3>
-                  <p>Sends via your email app — no account needed.</p>
+              <div class="email-cta-card">
+                <div class="email-cta-icon">
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
                 </div>
-                <form class="contact-form" id="contact-form" action="mailto:kkgodara2000@gmail.com" method="POST" enctype="text/plain" novalidate>
-                  <div class="form-row">
-                    <div class="form-group">
-                      <label for="cf-name">Name</label>
-                      <input type="text" id="cf-name" name="name" placeholder="Your name" required autocomplete="name" />
-                    </div>
-                    <div class="form-group">
-                      <label for="cf-email">Email</label>
-                      <input type="email" id="cf-email" name="email" placeholder="your@email.com" required autocomplete="email" />
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="cf-subject">Subject</label>
-                    <input type="text" id="cf-subject" name="subject" placeholder="Research collaboration, question, ..." />
-                  </div>
-                  <div class="form-group">
-                    <label for="cf-msg">Message</label>
-                    <textarea id="cf-msg" name="message" rows="5" placeholder="Your message..." required></textarea>
-                  </div>
-                  <button type="submit" class="btn btn-primary cf-submit">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-                    Send Message
-                  </button>
-                </form>
-                <div class="form-success" id="form-success">
-                  <div class="form-success-icon">✓</div>
-                  <p class="form-success-msg">Your email app should be opening with the message pre-filled. If nothing opened, email <a href="mailto:kkgodara2000@gmail.com" class="inline-link">kkgodara2000@gmail.com</a> directly.</p>
-                </div>
+                <h3>Drop me an email</h3>
+                <p>Click below to open your email app with my address pre-filled. I respond within 1–2 days.</p>
+                <a href="mailto:kkgodara2000@gmail.com?subject=Hello%20Krishna" class="btn btn-primary email-cta-btn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                  Send Email
+                </a>
+                <p class="email-cta-address">kkgodara2000@gmail.com</p>
               </div>
             </div>
           </div>

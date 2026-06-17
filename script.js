@@ -231,45 +231,6 @@ function initThemeToggle() {
   });
 }
 
-/* ── Contact form (mailto) ───────────────────────── */
-function initContactForm() {
-  const form = document.getElementById("contact-form");
-  const successEl = document.getElementById("form-success");
-  if (!form || !successEl) return;
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const name    = document.getElementById("cf-name").value.trim();
-    const email   = document.getElementById("cf-email").value.trim();
-    const subject = document.getElementById("cf-subject").value.trim() || "Portfolio Contact";
-    const message = document.getElementById("cf-msg").value.trim();
-
-    if (!name || !email || !message) {
-      toast("Please fill in your name, email, and message.");
-      return;
-    }
-
-    const btn = form.querySelector(".cf-submit");
-    btn.disabled = true;
-    btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="animation:spin .7s linear infinite"><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0"/></svg> Opening…`;
-
-    const body    = `Name: ${name}\nEmail: ${email}\n\n${message}`;
-    const mailto  = `mailto:kkgodara2000@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-    /* Open the email client */
-    const a = document.createElement("a");
-    a.href = mailto;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-
-    setTimeout(() => {
-      form.style.display = "none";
-      successEl.style.display = "flex";
-    }, 600);
-  });
-}
 
 /* ── Init ────────────────────────────────────────── */
 document.addEventListener("DOMContentLoaded", () => {
@@ -287,5 +248,4 @@ document.addEventListener("DOMContentLoaded", () => {
   initBackToTop();
   initHamburger();
   initThemeToggle();
-  initContactForm();
 });
