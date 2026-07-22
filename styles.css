@@ -14,7 +14,7 @@
   --txt-2:    #a0a8bc;
   --txt-3:    #5c6480;
 
-  /* Accent — indigo / violet */
+  /* Accent - indigo / violet */
   --accent:        #818cf8;
   --accent-light:  #a5b0ff;
   --accent-dim:    rgba(129, 140, 248, 0.12);
@@ -511,7 +511,7 @@ h4 { font-size: 1rem; font-weight: 600; }
   display: block;
 }
 
-/* notion.svg is black — invert in dark mode */
+/* notion.svg is black - invert in dark mode */
 html:not(.light) .ski-icon img[alt="Notion"] { filter: invert(1); }
 
 /* Wide variant for logos that include text (GROMACS, LAMMPS, OVITO) */
@@ -538,11 +538,11 @@ html:not(.light) .ski-icon img[alt="Notion"] { filter: invert(1); }
   max-width: 180px;
   object-fit: contain;
 }
-/* LAMMPS has dark background — keep as-is; add subtle border */
+/* LAMMPS has dark background - keep as-is; add subtle border */
 .ski-item--wide .ski-icon img[alt="LAMMPS"] {
   border-radius: 4px;
 }
-/* GROMACS / OVITO have white bg — in dark mode they need a slight tint */
+/* GROMACS / OVITO have white bg - in dark mode they need a slight tint */
 html:not(.light) .ski-item--wide .ski-icon img[alt="GROMACS"],
 html:not(.light) .ski-item--wide .ski-icon img[alt="OVITO"] {
   filter: brightness(0.9) contrast(1.05);
@@ -1608,7 +1608,7 @@ html.light .theme-toggle .icon-moon { display: block; }
 }
 
 /* ─────────────────────────────────────────────────────────
-   Conferences & Workshops — Card Grid
+   Conferences & Workshops - Card Grid
    ───────────────────────────────────────────────────────── */
 .conf-grid {
   display: grid;
@@ -2008,7 +2008,7 @@ html.light .btn-primary { color: #fff; }
    Stagger animation (data-stagger grids)
    ───────────────────────────────────────────────────────── */
 [data-stagger] {
-  /* override parent reveal animation — container shows instantly */
+  /* override parent reveal animation - container shows instantly */
   transition: opacity 0.01s, transform 0.01s !important;
 }
 
