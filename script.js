@@ -1,13 +1,19 @@
 "use strict";
 
-/* ── Particle background ─────────────────────────── */
+const REDUCE_MOTION = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const HAS_HOVER = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+/* ── Molecular-network particle background ──────────
+   Mouse-reactive: nearby particles are gently pushed away,
+   connections tint blue→cyan→purple by link distance.        */
 (function () {
   const canvas = document.getElementById("bg-canvas");
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
-  const dpr = window.devicePixelRatio || 1;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
   let W, H, particles = [];
-  const MAX = 55;
+  const MAX = REDUCE_MOTION ? 0 : 60;
+  const mouse = { x: -9999, y: -9999, active: false };
 
   function resize() {
     W = window.innerWidth;
@@ -24,7 +30,7 @@
       vx: (Math.random() - .5) * .12,
       vy: (Math.random() - .5) * .12,
       r: .6 + Math.random() * 1.2,
-      a: .08 + Math.random() * .2,
+      a: .1 + Math.random() * .22,
     };
   }
 
@@ -33,16 +39,35 @@
     for (let i = 0; i < MAX; i++) particles.push(mkParticle());
   }
 
+  function linkColor(t) {
+    /* t: 0 (far) -> 1 (close). Blend blue -> cyan. */
+    const r = Math.round(59 + (34 - 59) * t);
+    const g = Math.round(130 + (211 - 130) * t);
+    const b = Math.round(246 + (238 - 246) * t);
+    return `${r},${g},${b}`;
+  }
+
   function tick() {
     ctx.clearRect(0, 0, W, H);
 
     particles.forEach(p => {
+      if (mouse.active) {
+        const dx = p.x - mouse.x, dy = p.y - mouse.y;
+        const d2 = dx * dx + dy * dy;
+        if (d2 < 14400) { // 120px repulsion radius
+          const d = Math.sqrt(d2) || 1;
+          const f = (1 - d / 120) * .6;
+          p.vx += (dx / d) * f * .06;
+          p.vy += (dy / d) * f * .06;
+        }
+      }
+      p.vx *= .98; p.vy *= .98;
       p.x += p.vx; p.y += p.vy;
       if (p.x < 0 || p.x > W) p.vx *= -1;
       if (p.y < 0 || p.y > H) p.vy *= -1;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(129,140,248,${p.a})`;
+      ctx.fillStyle = `rgba(59,130,246,${p.a})`;
       ctx.fill();
     });
 
@@ -52,7 +77,8 @@
         const dx = a.x - b.x, dy = a.y - b.y;
         const d = Math.sqrt(dx * dx + dy * dy);
         if (d < 130) {
-          ctx.strokeStyle = `rgba(129,140,248,${(1 - d / 130) * .055})`;
+          const t = 1 - d / 130;
+          ctx.strokeStyle = `rgba(${linkColor(t)},${t * .09})`;
           ctx.lineWidth = .5;
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
@@ -67,9 +93,63 @@
 
   resize();
   seed();
-  tick();
+  if (!REDUCE_MOTION) {
+    tick();
+    window.addEventListener("pointermove", e => {
+      mouse.x = e.clientX; mouse.y = e.clientY; mouse.active = true;
+    }, { passive: true });
+    window.addEventListener("pointerleave", () => { mouse.active = false; });
+  }
   window.addEventListener("resize", () => { resize(); seed(); });
 })();
+
+/* ── Cursor glow (desktop, motion-safe only) ─────── */
+function initCursorGlow() {
+  if (!HAS_HOVER || REDUCE_MOTION) return;
+  const glow = document.createElement("div");
+  glow.className = "cursor-glow";
+  document.body.appendChild(glow);
+  let raf = null, tx = 0, ty = 0;
+
+  window.addEventListener("pointermove", e => {
+    tx = e.clientX; ty = e.clientY;
+    glow.classList.add("active");
+    if (!raf) raf = requestAnimationFrame(() => {
+      glow.style.transform = `translate3d(${tx}px, ${ty}px, 0)`;
+      raf = null;
+    });
+  }, { passive: true });
+
+  document.addEventListener("mouseleave", () => glow.classList.remove("active"));
+}
+
+/* ── Magnetic buttons ─────────────────────────────── */
+function initMagnetic() {
+  if (!HAS_HOVER || REDUCE_MOTION) return;
+  document.querySelectorAll(".btn, .nav-cta, .cmdk-trigger").forEach(el => {
+    el.addEventListener("mousemove", e => {
+      const r = el.getBoundingClientRect();
+      const x = e.clientX - r.left - r.width / 2;
+      const y = e.clientY - r.top - r.height / 2;
+      el.style.transform = `translate(${x * .18}px, ${y * .35}px)`;
+    });
+    el.addEventListener("mouseleave", () => { el.style.transform = ""; });
+  });
+}
+
+/* ── 3D tilt on cards ─────────────────────────────── */
+function initTilt() {
+  if (!HAS_HOVER || REDUCE_MOTION) return;
+  document.querySelectorAll(".r-card, .repo-card, .cw-card").forEach(el => {
+    el.addEventListener("mousemove", e => {
+      const r = el.getBoundingClientRect();
+      const px = (e.clientX - r.left) / r.width - .5;
+      const py = (e.clientY - r.top) / r.height - .5;
+      el.style.transform = `perspective(700px) rotateX(${(-py * 6).toFixed(2)}deg) rotateY(${(px * 6).toFixed(2)}deg) translateY(-4px) scale(1.015)`;
+    });
+    el.addEventListener("mouseleave", () => { el.style.transform = ""; });
+  });
+}
 
 /* ── Stat counters ───────────────────────────────── */
 function initCounters() {
@@ -214,13 +294,13 @@ function initHamburger() {
   });
 }
 
-/* ── Dark/light theme toggle ─────────────────────── */
+/* ── Dark/light theme toggle (dark is default) ──── */
 function initThemeToggle() {
   const btn = document.getElementById("theme-toggle");
   if (!btn) return;
 
   const stored = localStorage.getItem("theme");
-  if (stored !== "dark") document.documentElement.classList.add("light");
+  if (stored === "light") document.documentElement.classList.add("light");
 
   btn.addEventListener("click", () => {
     const html = document.documentElement;
@@ -231,6 +311,117 @@ function initThemeToggle() {
   });
 }
 
+/* ── Konami code easter egg ──────────────────────── */
+function initKonami() {
+  const seq = ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"];
+  let pos = 0;
+  document.addEventListener("keydown", e => {
+    const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    pos = key === seq[pos] ? pos + 1 : 0;
+    if (pos === seq.length) {
+      pos = 0;
+      document.documentElement.classList.add("egg-active");
+      const el = document.createElement("div");
+      el.className = "egg-toast";
+      el.textContent = "⚛ Phase transition unlocked. Active matter mode engaged.";
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 3200);
+      setTimeout(() => document.documentElement.classList.remove("egg-active"), 8000);
+    }
+  });
+}
+
+/* ── Command palette (⌘K / Ctrl+K) ───────────────── */
+function initCommandPalette() {
+  const trigger = document.getElementById("cmdk-trigger");
+  if (!trigger) return;
+
+  const items = [
+    { label: "About", href: "#about" },
+    { label: "Research", href: "#research" },
+    { label: "Awards & Achievements", href: "#awards" },
+    { label: "Conferences & Workshops", href: "#conferences" },
+    { label: "Certificates", href: "#certificates" },
+    { label: "Projects", href: "#projects" },
+    { label: "Publications", href: "#publications" },
+    { label: "Contact", href: "#contact" },
+    { label: "Download CV", action: () => document.querySelector('a[download]')?.click() },
+    { label: "Toggle theme", action: () => document.getElementById("theme-toggle")?.click() },
+    { label: "Open GitHub profile", action: () => window.open("https://github.com/kkreboot", "_blank", "noopener") },
+    { label: "Copy email address", action: () => {
+        navigator.clipboard?.writeText("kkgodara2000@gmail.com");
+        toast("Email copied to clipboard");
+      } },
+  ];
+
+  const overlay = document.createElement("div");
+  overlay.className = "cmdk-overlay";
+  overlay.innerHTML = `
+    <div class="cmdk-panel" role="dialog" aria-modal="true" aria-label="Command palette">
+      <input class="cmdk-input" type="text" placeholder="Jump to a section or run a command…" autocomplete="off" />
+      <div class="cmdk-list"></div>
+    </div>`;
+  document.body.appendChild(overlay);
+
+  const input = overlay.querySelector(".cmdk-input");
+  const list = overlay.querySelector(".cmdk-list");
+  let active = 0;
+
+  function render(filter) {
+    const q = (filter || "").toLowerCase();
+    const matches = items.filter(i => i.label.toLowerCase().includes(q));
+    list.innerHTML = matches.length
+      ? matches.map((i, idx) => `<div class="cmdk-item${idx === active ? " active" : ""}" data-idx="${idx}">${i.label}</div>`).join("")
+      : `<div class="cmdk-empty">No matches</div>`;
+    list.querySelectorAll(".cmdk-item").forEach(el => {
+      el.addEventListener("click", () => run(matches[Number(el.dataset.idx)]));
+    });
+    render.current = matches;
+  }
+
+  function run(item) {
+    if (!item) return;
+    close();
+    if (item.href) {
+      const target = document.querySelector(item.href);
+      if (target) target.scrollIntoView({ behavior: REDUCE_MOTION ? "auto" : "smooth", block: "start" });
+    } else if (item.action) {
+      item.action();
+    }
+  }
+
+  function open() {
+    overlay.classList.add("open");
+    input.value = "";
+    active = 0;
+    render("");
+    setTimeout(() => input.focus(), 30);
+  }
+
+  function close() {
+    overlay.classList.remove("open");
+  }
+
+  trigger.addEventListener("click", open);
+  overlay.addEventListener("click", e => { if (e.target === overlay) close(); });
+  input.addEventListener("input", () => { active = 0; render(input.value); });
+  input.addEventListener("keydown", e => {
+    const matches = render.current || [];
+    if (e.key === "ArrowDown") { e.preventDefault(); active = Math.min(active + 1, matches.length - 1); render(input.value); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); active = Math.max(active - 1, 0); render(input.value); }
+    else if (e.key === "Enter") { e.preventDefault(); run(matches[active]); }
+    else if (e.key === "Escape") { close(); }
+  });
+
+  document.addEventListener("keydown", e => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+      e.preventDefault();
+      overlay.classList.contains("open") ? close() : open();
+    } else if (e.key === "Escape" && overlay.classList.contains("open")) {
+      close();
+    }
+  });
+}
 
 /* ── Init ────────────────────────────────────────── */
 document.addEventListener("DOMContentLoaded", () => {
@@ -248,4 +439,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initBackToTop();
   initHamburger();
   initThemeToggle();
+  initCursorGlow();
+  initMagnetic();
+  initTilt();
+  initKonami();
+  initCommandPalette();
 });
